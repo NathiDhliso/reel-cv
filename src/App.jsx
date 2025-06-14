@@ -33,7 +33,7 @@ function App() {
 
   // Determine dashboard route based on user role
   const getDashboardRoute = () => {
-    if (!user) return '/dashboard';
+    if (!user) return '/login';
     switch (user.role) {
       case 'proctor':
         return '/proctor-dashboard';
@@ -99,8 +99,12 @@ function App() {
       
       <main className={styles.mainContent}>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={
+            user ? <Navigate to={getDashboardRoute()} replace /> : <LoginPage />
+          } />
+          <Route path="/register" element={
+            user ? <Navigate to={getDashboardRoute()} replace /> : <RegisterPage />
+          } />
           
           <Route path="/dashboard" element={
             <PrivateRoute>
@@ -132,11 +136,15 @@ function App() {
             </PrivateRoute>
           } />
           
-          {/* Root route - now goes to appropriate dashboard based on role */}
-          <Route path="/" element={<Navigate to={getDashboardRoute()} replace />} />
+          {/* Root route - redirect based on auth status */}
+          <Route path="/" element={
+            user ? <Navigate to={getDashboardRoute()} replace /> : <Navigate to="/login" replace />
+          } />
           
-          {/* Catch-all route - now goes to appropriate dashboard based on role */}
-          <Route path="*" element={<Navigate to={getDashboardRoute()} replace />} />
+          {/* Catch-all route - redirect based on auth status */}
+          <Route path="*" element={
+            user ? <Navigate to={getDashboardRoute()} replace /> : <Navigate to="/login" replace />
+          } />
         </Routes>
       </main>
     </div>

@@ -16,18 +16,23 @@ export const PrivateRoute = ({ children, requiredRole, requiredPermission }) => 
         );
     }
     
-    if (!token || !user) {
+    if (!user) {
         return <Navigate to="/login" replace />;
     }
     
     // Check role-based access (legacy support)
     if (requiredRole && user?.role !== requiredRole) {
-        return <Navigate to="/dashboard" replace />;
+        // Redirect to appropriate dashboard based on user's actual role
+        const redirectPath = user.role === 'proctor' ? '/proctor-dashboard' : 
+                           user.role === 'recruiter' ? '/recruiter-dashboard' : '/dashboard';
+        return <Navigate to={redirectPath} replace />;
     }
     
     // Check permission-based access (new RBAC system)
     if (requiredPermission && !hasPermission(requiredPermission)) {
-        return <Navigate to="/dashboard" replace />;
+        const redirectPath = user.role === 'proctor' ? '/proctor-dashboard' : 
+                           user.role === 'recruiter' ? '/recruiter-dashboard' : '/dashboard';
+        return <Navigate to={redirectPath} replace />;
     }
     
     return children || <Outlet />;

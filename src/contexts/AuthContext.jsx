@@ -56,7 +56,25 @@ export const AuthProvider = ({ children }) => {
 
                 if (roleError) {
                     console.error('Error fetching role:', roleError);
-                    return null;
+                    // If role doesn't exist, create a basic user without role_id
+                    const { data: newUser, error: insertError } = await supabase
+                        .from('User')
+                        .insert([{
+                            id: authUser.id,
+                            email: authUser.email,
+                            firstName: authUser.user_metadata?.firstName || authUser.user_metadata?.first_name || '',
+                            lastName: authUser.user_metadata?.lastName || authUser.user_metadata?.last_name || '',
+                            role: defaultRole
+                        }])
+                        .select('*')
+                        .single();
+
+                    if (insertError) {
+                        console.error('Error creating user:', insertError);
+                        return null;
+                    }
+
+                    return newUser;
                 }
 
                 const { data: newUser, error: insertError } = await supabase
@@ -104,7 +122,7 @@ export const AuthProvider = ({ children }) => {
                 return [];
             }
 
-            return data.map(p => p.permission_name);
+            return data?.map(p => p.permission_name) || [];
         } catch (error) {
             console.error('Error fetching permissions:', error);
             return [];
@@ -112,34 +130,24 @@ export const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        // Check for an active session
-        supabase.auth.getSession().then(async ({ data: { session } }) => {
-            if (session?.user) {
-                const userData = await syncUserData(session.user);
-                if (userData) {
-                    const userPermissions = await fetchUserPermissions(userData.id);
-                    setUser({
-                        id: userData.id,
-                        email: userData.email,
-                        firstName: userData.firstName,
-                        lastName: userData.lastName,
-                        role: userData.role,
-                        role_id: userData.role_id,
-                        roleInfo: userData.roles
-                    });
-                    setPermissions(userPermissions);
-                    setToken(session.access_token);
-                }
-            }
-            setLoading(false);
-        });
+        let mounted = true;
 
-        // Listen for changes in auth state (login, logout)
-        const { data: authListener } = supabase.auth.onAuthStateChange(
-            async (event, session) => {
-                if (session?.user) {
+        const initializeAuth = async () => {
+            try {
+                // Check for an active session
+                const { data: { session }, error } = await supabase.auth.getSession();
+                
+                if (error) {
+                    console.error('Error getting session:', error);
+                    if (mounted) {
+                        setLoading(false);
+                    }
+                    return;
+                }
+
+                if (session?.user && mounted) {
                     const userData = await syncUserData(session.user);
-                    if (userData) {
+                    if (userData && mounted) {
                         const userPermissions = await fetchUserPermissions(userData.id);
                         setUser({
                             id: userData.id,
@@ -153,63 +161,118 @@ export const AuthProvider = ({ children }) => {
                         setPermissions(userPermissions);
                         setToken(session.access_token);
                     }
-                } else {
-                    setUser(null);
-                    setPermissions([]);
-                    setToken(null);
                 }
-                setLoading(false);
+            } catch (error) {
+                console.error('Error initializing auth:', error);
+            } finally {
+                if (mounted) {
+                    setLoading(false);
+                }
+            }
+        };
+
+        initializeAuth();
+
+        // Listen for changes in auth state (login, logout)
+        const { data: authListener } = supabase.auth.onAuthStateChange(
+            async (event, session) => {
+                if (!mounted) return;
+
+                try {
+                    if (session?.user) {
+                        const userData = await syncUserData(session.user);
+                        if (userData && mounted) {
+                            const userPermissions = await fetchUserPermissions(userData.id);
+                            setUser({
+                                id: userData.id,
+                                email: userData.email,
+                                firstName: userData.firstName,
+                                lastName: userData.lastName,
+                                role: userData.role,
+                                role_id: userData.role_id,
+                                roleInfo: userData.roles
+                            });
+                            setPermissions(userPermissions);
+                            setToken(session.access_token);
+                        }
+                    } else {
+                        setUser(null);
+                        setPermissions([]);
+                        setToken(null);
+                    }
+                } catch (error) {
+                    console.error('Error in auth state change:', error);
+                } finally {
+                    if (mounted) {
+                        setLoading(false);
+                    }
+                }
             }
         );
 
-        // Cleanup the listener when the component unmounts
+        // Cleanup function
         return () => {
+            mounted = false;
             authListener.subscription.unsubscribe();
         };
     }, []);
 
     const login = async (email, password) => {
-        // Use Supabase Auth for now, but this could be migrated to AWS Lambda
-        const { data, error } = await supabase.auth.signInWithPassword({ 
-            email, 
-            password 
-        });
-        
-        if (error) {
-            throw new Error(error.message);
+        try {
+            // Use Supabase Auth for now, but this could be migrated to AWS Lambda
+            const { data, error } = await supabase.auth.signInWithPassword({ 
+                email, 
+                password 
+            });
+            
+            if (error) {
+                throw new Error(error.message);
+            }
+            
+            return data;
+        } catch (error) {
+            console.error('Login error:', error);
+            throw error;
         }
-        
-        return data;
     };
 
     const register = async (email, password, firstName, lastName) => {
-        // Use Supabase Auth for now, but this could be migrated to AWS Lambda
-        const { data, error } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-                data: {
-                    firstName,
-                    lastName,
-                    first_name: firstName,
-                    last_name: lastName,
-                    role: 'candidate'
+        try {
+            // Use Supabase Auth for now, but this could be migrated to AWS Lambda
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: {
+                        firstName,
+                        lastName,
+                        first_name: firstName,
+                        last_name: lastName,
+                        role: 'candidate'
+                    }
                 }
+            });
+            
+            if (error) {
+                throw new Error(error.message);
             }
-        });
-        
-        if (error) {
-            throw new Error(error.message);
+            
+            return data;
+        } catch (error) {
+            console.error('Registration error:', error);
+            throw error;
         }
-        
-        return data;
     };
 
     const logout = async () => {
-        await supabase.auth.signOut();
-        setUser(null);
-        setPermissions([]);
-        setToken(null);
+        try {
+            await supabase.auth.signOut();
+            setUser(null);
+            setPermissions([]);
+            setToken(null);
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
     };
 
     const hasPermission = (permission) => {

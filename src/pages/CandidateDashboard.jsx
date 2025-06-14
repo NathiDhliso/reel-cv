@@ -12,12 +12,20 @@ export const CandidateDashboard = () => {
     const { user } = useAuth();
 
     useEffect(() => {
-        if (user) {
+        if (user?.id) {
             fetchAssessments();
+        } else {
+            setLoading(false);
         }
     }, [user]);
 
     const fetchAssessments = async () => {
+        if (!user?.id) {
+            setError('User not found');
+            setLoading(false);
+            return;
+        }
+
         try {
             const { data, error } = await supabase
                 .from('Assessment')
@@ -30,12 +38,15 @@ export const CandidateDashboard = () => {
                 .eq('candidateId', user.id)
                 .order('created_at', { ascending: false });
             
-            if (error) throw error;
+            if (error) {
+                console.error('Error fetching assessments:', error);
+                throw error;
+            }
             
             setAssessments(data || []);
         } catch (err) {
             console.error('Error fetching assessments:', err);
-            setError('Failed to load assessments');
+            setError('Failed to load assessments. Please try refreshing the page.');
         } finally {
             setLoading(false);
         }
@@ -80,6 +91,14 @@ export const CandidateDashboard = () => {
         );
     }
 
+    if (!user) {
+        return (
+            <div className={styles.errorMessage}>
+                User session not found. Please try logging in again.
+            </div>
+        );
+    }
+
     return (
         <div className={styles.dashboardContainer}>
             <div className={styles.dashboardHeader}>
@@ -93,6 +112,12 @@ export const CandidateDashboard = () => {
             {error && (
                 <div className={styles.errorMessage}>
                     {error}
+                    <button 
+                        onClick={fetchAssessments}
+                        className="ml-4 px-3 py-1 bg-blue-500 text-white rounded text-sm hover:bg-blue-600"
+                    >
+                        Retry
+                    </button>
                 </div>
             )}
 
