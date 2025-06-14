@@ -16,18 +16,66 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const syncUserData = async (authUser) => {
+        if (!authUser) return null;
+
+        try {
+            // Check if user exists in our User table
+            const { data: existingUser, error: fetchError } = await supabase
+                .from('User')
+                .select('*')
+                .eq('id', authUser.id)
+                .single();
+
+            if (fetchError && fetchError.code !== 'PGRST116') {
+                console.error('Error fetching user:', fetchError);
+                return null;
+            }
+
+            // If user doesn't exist, create them
+            if (!existingUser) {
+                const { data: newUser, error: insertError } = await supabase
+                    .from('User')
+                    .insert([{
+                        id: authUser.id,
+                        email: authUser.email,
+                        firstName: authUser.user_metadata?.firstName || authUser.user_metadata?.first_name || '',
+                        lastName: authUser.user_metadata?.lastName || authUser.user_metadata?.last_name || '',
+                        role: authUser.user_metadata?.role || 'candidate'
+                    }])
+                    .select()
+                    .single();
+
+                if (insertError) {
+                    console.error('Error creating user:', insertError);
+                    return null;
+                }
+
+                return newUser;
+            }
+
+            return existingUser;
+        } catch (error) {
+            console.error('Error syncing user data:', error);
+            return null;
+        }
+    };
+
     useEffect(() => {
         // Check for an active session
-        supabase.auth.getSession().then(({ data: { session } }) => {
+        supabase.auth.getSession().then(async ({ data: { session } }) => {
             if (session?.user) {
-                setUser({
-                    id: session.user.id,
-                    email: session.user.email,
-                    firstName: session.user.user_metadata?.firstName || session.user.user_metadata?.first_name,
-                    lastName: session.user.user_metadata?.lastName || session.user.user_metadata?.last_name,
-                    role: session.user.user_metadata?.role || 'candidate'
-                });
-                setToken(session.access_token);
+                const userData = await syncUserData(session.user);
+                if (userData) {
+                    setUser({
+                        id: userData.id,
+                        email: userData.email,
+                        firstName: userData.firstName,
+                        lastName: userData.lastName,
+                        role: userData.role
+                    });
+                    setToken(session.access_token);
+                }
             }
             setLoading(false);
         });
@@ -36,14 +84,17 @@ export const AuthProvider = ({ children }) => {
         const { data: authListener } = supabase.auth.onAuthStateChange(
             async (event, session) => {
                 if (session?.user) {
-                    setUser({
-                        id: session.user.id,
-                        email: session.user.email,
-                        firstName: session.user.user_metadata?.firstName || session.user.user_metadata?.first_name,
-                        lastName: session.user.user_metadata?.lastName || session.user.user_metadata?.last_name,
-                        role: session.user.user_metadata?.role || 'candidate'
-                    });
-                    setToken(session.access_token);
+                    const userData = await syncUserData(session.user);
+                    if (userData) {
+                        setUser({
+                            id: userData.id,
+                            email: userData.email,
+                            firstName: userData.firstName,
+                            lastName: userData.lastName,
+                            role: userData.role
+                        });
+                        setToken(session.access_token);
+                    }
                 } else {
                     setUser(null);
                     setToken(null);

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Upload, Video, CheckCircle } from 'lucide-react';
 import { supabase } from '../supabaseClient';
+import { useAuth } from '../contexts/AuthContext';
 import styles from './SkillSubmitForm.module.css';
 
 export const SkillSubmitForm = () => {
@@ -12,6 +13,7 @@ export const SkillSubmitForm = () => {
     const [selectedSkill, setSelectedSkill] = useState('');
     const [loadingSkills, setLoadingSkills] = useState(true);
     const navigate = useNavigate();
+    const { user } = useAuth();
 
     useEffect(() => {
         fetchSkills();
@@ -76,6 +78,10 @@ export const SkillSubmitForm = () => {
             setMessage('Please select a skill to assess.');
             return;
         }
+        if (!user) {
+            setMessage('Please log in to submit an assessment.');
+            return;
+        }
 
         setUploading(true);
         setMessage('Uploading video...');
@@ -86,9 +92,16 @@ export const SkillSubmitForm = () => {
             
             setMessage('Creating assessment...');
             
-            // Get current user
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) throw new Error('User not authenticated');
+            // Verify user exists in User table
+            const { data: userData, error: userError } = await supabase
+                .from('User')
+                .select('id')
+                .eq('id', user.id)
+                .single();
+
+            if (userError || !userData) {
+                throw new Error('User not found. Please try logging out and back in.');
+            }
 
             // Create assessment record
             const { data: assessment, error } = await supabase
@@ -194,7 +207,7 @@ export const SkillSubmitForm = () => {
 
                 <button 
                     type="submit" 
-                    disabled={uploading || !selectedSkill || skills.length === 0} 
+                    disabled={uploading || !selectedSkill || skills.length === 0 || !user} 
                     className={styles.submitButton}
                 >
                     {uploading ? (
