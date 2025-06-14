@@ -8,18 +8,8 @@ export default defineConfig({
     exclude: ['lucide-react'],
   },
   server: {
-    // This MUST match targetPort in netlify.toml
-    port: 5173, 
-    
+    port: 5173, // This port must match targetPort
     historyApiFallback: true,
-    
-    // This proxy target MUST match port in netlify.toml
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8888', 
-        changeOrigin: true,
-      },
-    },
   },
   base: '/',
 });
