@@ -1,17 +1,33 @@
 .appContainer {
-  @apply min-h-screen bg-modern-gray dark:bg-gray-900 transition-colors duration-500;
+  @apply min-h-screen bg-gradient-to-br from-modern-gray via-clean-white to-hopeful-turquoise/5 dark:from-gray-900 dark:via-gray-800 dark:to-deep-ocean-blue/10 transition-all duration-500;
 }
 
 .header {
-  @apply w-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50;
+  @apply w-full bg-clean-white/95 dark:bg-gray-800/95 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-700/50 sticky top-0 z-50 shadow-lg;
 }
 
 .headerContent {
-  @apply max-w-7xl mx-auto px-4 py-4 flex items-center justify-between;
+  @apply max-w-7xl mx-auto px-6 py-4 flex items-center justify-between;
+}
+
+.brandSection {
+  @apply flex items-center space-x-4;
+}
+
+.logo {
+  @apply flex items-center space-x-3;
+}
+
+.brandName {
+  @apply text-2xl font-bold bg-gradient-to-r from-deep-ocean-blue to-innovation-purple bg-clip-text text-transparent;
+}
+
+.tagline {
+  @apply text-sm text-gray-600 dark:text-gray-400 font-medium hidden md:block;
 }
 
 .userSection {
-  @apply flex items-center gap-4;
+  @apply flex items-center gap-6;
 }
 
 .welcomeText {
@@ -19,7 +35,7 @@
 }
 
 .navLink {
-  @apply font-semibold text-deep-ocean-blue dark:text-hopeful-turquoise hover:text-deep-ocean-blue/80 dark:hover:text-hopeful-turquoise/80 hover:underline transition-colors duration-300;
+  @apply inline-flex items-center font-semibold text-deep-ocean-blue dark:text-hopeful-turquoise hover:text-innovation-purple dark:hover:text-optimistic-yellow transition-all duration-300 px-3 py-2 rounded-lg hover:bg-deep-ocean-blue/10 dark:hover:bg-hopeful-turquoise/10;
 }
 
 .buttonGroup {
@@ -27,11 +43,11 @@
 }
 
 .authButton {
-  @apply px-4 py-2 bg-deep-ocean-blue dark:bg-hopeful-turquoise text-white rounded-lg hover:bg-opacity-90 transition-all duration-300 font-medium text-sm;
+  @apply inline-flex items-center px-6 py-2 bg-gradient-to-r from-deep-ocean-blue to-growth-green hover:from-innovation-purple hover:to-deep-ocean-blue text-clean-white rounded-lg transition-all duration-300 font-medium text-sm shadow-lg hover:shadow-xl transform hover:scale-105;
 }
 
 .themeToggleButton {
-  @apply px-3 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300 text-lg cursor-pointer border-none outline-none;
+  @apply px-3 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-gray-800 dark:text-gray-200 hover:bg-optimistic-yellow/20 dark:hover:bg-hopeful-turquoise/20 transition-all duration-300 text-lg cursor-pointer border-none outline-none shadow-md hover:shadow-lg;
 }
 
 .themeToggleButton:focus {
@@ -39,7 +55,7 @@
 }
 
 .mainContent {
-  @apply w-full max-w-6xl mx-auto py-8 px-4 min-h-[calc(100vh-80px)];
+  @apply w-full max-w-7xl mx-auto py-8 px-6 min-h-[calc(100vh-80px)];
 }
 
 .welcomeContainer {
@@ -47,7 +63,7 @@
 }
 
 .welcomeTitle {
-  @apply text-5xl font-bold mb-4 text-deep-ocean-blue dark:text-hopeful-turquoise;
+  @apply text-5xl font-bold mb-4 bg-gradient-to-r from-deep-ocean-blue via-innovation-purple to-growth-green bg-clip-text text-transparent;
 }
 
 .welcomeSubtitle {
@@ -55,5 +71,5 @@
 }
 
 .ctaButton {
-  @apply inline-block px-8 py-4 bg-growth-green text-white font-bold rounded-lg hover:bg-growth-green/90 transition-all duration-300 text-lg;
+  @apply inline-block px-8 py-4 bg-gradient-to-r from-growth-green to-hopeful-turquoise text-clean-white font-bold rounded-lg hover:from-deep-ocean-blue hover:to-innovation-purple transition-all duration-300 text-lg shadow-xl hover:shadow-2xl transform hover:scale-105;
 }

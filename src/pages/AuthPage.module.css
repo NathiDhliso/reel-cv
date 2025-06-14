@@ -1,35 +1,127 @@
+.pageContainer {
+  @apply min-h-screen bg-gradient-to-br from-deep-ocean-blue/5 via-clean-white to-hopeful-turquoise/10 dark:from-gray-900 dark:via-gray-800 dark:to-deep-ocean-blue/20 flex items-center justify-center py-12 px-4;
+}
+
 .authContainer {
-  @apply w-full max-w-md mx-auto p-8 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-2xl rounded-2xl border border-gray-200/50 dark:border-gray-700/50 transition-all duration-300;
+  @apply w-full max-w-lg mx-auto p-8 bg-clean-white/95 dark:bg-gray-800/95 backdrop-blur-xl shadow-2xl rounded-3xl border border-gray-200/30 dark:border-gray-700/30 transition-all duration-500;
+}
+
+.brandHeader {
+  @apply text-center mb-8;
+}
+
+.logoContainer {
+  @apply flex items-center justify-center space-x-3 mb-4;
+}
+
+.brandTitle {
+  @apply text-3xl font-bold bg-gradient-to-r from-deep-ocean-blue to-innovation-purple bg-clip-text text-transparent;
 }
 
 .title {
-  @apply text-3xl font-bold mb-2 text-deep-ocean-blue dark:text-hopeful-turquoise;
+  @apply text-2xl font-bold mb-2 text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.subtitle {
+  @apply text-gray-600 dark:text-gray-400 text-sm leading-relaxed;
+}
+
+.form {
+  @apply space-y-6 mb-8;
+}
+
+.nameGrid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+
+.inputGroup {
+  @apply relative;
+}
+
+.inputIcon {
+  @apply absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 z-10;
 }
 
 .input {
-  @apply w-full px-4 py-3 mb-4 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-50/50 dark:bg-gray-700/50 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300 backdrop-blur-sm;
+  @apply w-full pl-12 pr-4 py-4 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-50/50 dark:bg-gray-700/50 text-gray-800 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300 backdrop-blur-sm;
 }
 
 .input:focus {
-  @apply bg-white dark:bg-gray-700 shadow-lg transform scale-[1.02];
+  @apply bg-clean-white dark:bg-gray-700 shadow-lg transform scale-[1.02] ring-2 ring-deep-ocean-blue/50 dark:ring-hopeful-turquoise/50;
 }
 
 .submitButton {
-  @apply w-full bg-gradient-to-r from-deep-ocean-blue to-growth-green hover:from-deep-ocean-blue/90 hover:to-growth-green/90 text-white font-bold py-4 px-6 rounded-xl focus:outline-none focus:ring-4 focus:ring-optimistic-yellow/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-[1.02] hover:shadow-xl flex items-center justify-center;
+  @apply w-full bg-gradient-to-r from-deep-ocean-blue via-innovation-purple to-growth-green hover:from-growth-green hover:via-hopeful-turquoise hover:to-deep-ocean-blue text-clean-white font-bold py-4 px-6 rounded-xl focus:outline-none focus:ring-4 focus:ring-optimistic-yellow/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-500 transform hover:scale-[1.02] hover:shadow-2xl flex items-center justify-center;
 }
 
 .submitButton:active {
   @apply transform scale-[0.98];
 }
 
+.spinner {
+  @apply w-5 h-5 border-2 border-clean-white border-t-transparent rounded-full animate-spin mr-2;
+}
+
+.linkSection {
+  @apply text-center mb-6;
+}
+
 .linkText {
-  @apply mt-6 text-center text-sm text-gray-600 dark:text-gray-400;
+  @apply text-sm text-gray-600 dark:text-gray-400;
 }
 
 .link {
-  @apply font-semibold text-growth-green dark:text-hopeful-turquoise hover:text-growth-green/80 dark:hover:text-hopeful-turquoise/80 hover:underline transition-colors duration-300;
+  @apply font-semibold text-growth-green dark:text-hopeful-turquoise hover:text-innovation-purple dark:hover:text-optimistic-yellow transition-colors duration-300;
+}
+
+.successMessage {
+  @apply mb-4 p-4 bg-gradient-to-r from-growth-green/10 to-hopeful-turquoise/10 text-growth-green dark:text-hopeful-turquoise rounded-xl border border-growth-green/20 dark:border-hopeful-turquoise/20 flex items-center backdrop-blur-sm;
 }
 
 .error {
-  @apply mb-4 text-center text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 p-4 rounded-xl text-sm border border-red-200 dark:border-red-800 backdrop-blur-sm;
+  @apply mb-4 text-center text-red-600 dark:text-red-400 bg-red-50/80 dark:bg-red-900/20 p-4 rounded-xl text-sm border border-red-200 dark:border-red-800 backdrop-blur-sm;
+}
+
+.demoSection {
+  @apply mt-6 pt-6 border-t border-gray-200/50 dark:border-gray-700/50;
+}
+
+.demoTitle {
+  @apply text-center text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3;
+}
+
+.demoCredentials {
+  @apply space-y-2;
+}
+
+.demoItem {
+  @apply flex justify-between items-center text-xs;
+}
+
+.demoRole {
+  @apply font-medium text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.demoEmail {
+  @apply text-gray-600 dark:text-gray-400 font-mono;
+}
+
+.demoPassword {
+  @apply text-center text-xs text-gray-500 dark:text-gray-500 mt-2 font-mono;
+}
+
+.featuresSection {
+  @apply mt-6 pt-6 border-t border-gray-200/50 dark:border-gray-700/50;
+}
+
+.featuresTitle {
+  @apply text-center text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3;
+}
+
+.featuresList {
+  @apply space-y-2;
+}
+
+.feature {
+  @apply text-xs text-gray-600 dark:text-gray-400 text-center;
 }

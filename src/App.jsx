@@ -9,6 +9,7 @@ import { RegisterPage } from './pages/RegisterPage';
 import { CandidateDashboard } from './pages/CandidateDashboard';
 import { ProctorDashboard } from './pages/ProctorDashboard';
 import { AssessmentDetail } from './pages/AssessmentDetail';
+import { Video, Zap, Shield } from 'lucide-react';
 import styles from './App.module.css';
 
 function App() {
@@ -20,7 +21,10 @@ function App() {
     return (
       <div className={styles.appContainer}>
         <div className="min-h-screen flex items-center justify-center">
-          <div className="text-xl text-gray-600 dark:text-gray-400">Loading...</div>
+          <div className="flex flex-col items-center space-y-4">
+            <div className="w-16 h-16 border-4 border-deep-ocean-blue border-t-transparent rounded-full animate-spin"></div>
+            <div className="text-xl text-gray-600 dark:text-gray-400">Loading ReelCV...</div>
+          </div>
         </div>
       </div>
     );
@@ -30,6 +34,16 @@ function App() {
     <div className={styles.appContainer}>
       <header className={styles.header}>
         <div className={styles.headerContent}>
+          <div className={styles.brandSection}>
+            <div className={styles.logo}>
+              <Video className="w-8 h-8 text-deep-ocean-blue dark:text-hopeful-turquoise" />
+              <span className={styles.brandName}>ReelCV</span>
+            </div>
+            <div className={styles.tagline}>
+              Revolutionizing Talent Acquisition
+            </div>
+          </div>
+          
           {user && (
             <div className={styles.userSection}>
               <span className={styles.welcomeText}>
@@ -39,10 +53,12 @@ function App() {
                 to={user.role === 'proctor' ? "/proctor-dashboard" : "/dashboard"} 
                 className={styles.navLink}
               >
+                <Shield className="w-4 h-4 mr-1" />
                 Dashboard
               </Link>
             </div>
           )}
+          
           <div className={styles.buttonGroup}>
             {user ? (
               <button onClick={logout} className={styles.authButton}>
@@ -50,6 +66,7 @@ function App() {
               </button>
             ) : (
               <Link to="/login" className={styles.authButton}>
+                <Zap className="w-4 h-4 mr-2" />
                 Login
               </Link>
             )}
@@ -59,6 +76,7 @@ function App() {
           </div>
         </div>
       </header>
+      
       <main className={styles.mainContent}>
         <Routes>
           <Route path="/login" element={

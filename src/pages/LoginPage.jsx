@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { LogIn, Mail, Lock, CheckCircle } from 'lucide-react';
+import { LogIn, Mail, Lock, CheckCircle, Video, Zap } from 'lucide-react';
 import styles from './AuthPage.module.css';
 
 export const LoginPage = () => {
@@ -32,21 +32,22 @@ export const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-modern-gray via-white to-deep-ocean-blue/10 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center py-12 px-4">
+        <div className={styles.pageContainer}>
             <div className={styles.authContainer}>
-                <div className="text-center mb-8">
-                    <div className="mx-auto w-16 h-16 bg-gradient-to-r from-deep-ocean-blue to-growth-green rounded-full flex items-center justify-center mb-4">
-                        <LogIn className="w-8 h-8 text-white" />
+                <div className={styles.brandHeader}>
+                    <div className={styles.logoContainer}>
+                        <Video className="w-10 h-10 text-deep-ocean-blue dark:text-hopeful-turquoise" />
+                        <span className={styles.brandTitle}>ReelCV</span>
                     </div>
                     <h2 className={styles.title}>Welcome Back</h2>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
-                        Sign in to continue your skill assessment journey
+                    <p className={styles.subtitle}>
+                        Continue your journey in revolutionizing talent acquisition
                     </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className={styles.form}>
                     {successMessage && (
-                        <div className="mb-4 p-4 bg-growth-green/10 text-growth-green rounded-lg border border-growth-green/20 flex items-center">
+                        <div className={styles.successMessage}>
                             <CheckCircle className="w-5 h-5 mr-2" />
                             {successMessage}
                         </div>
@@ -54,26 +55,26 @@ export const LoginPage = () => {
                     
                     {error && <div className={styles.error}>{error}</div>}
                     
-                    <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <div className={styles.inputGroup}>
+                        <Mail className={styles.inputIcon} />
                         <input 
                             type="email" 
                             placeholder="Email Address" 
                             value={email} 
                             onChange={(e) => setEmail(e.target.value)} 
-                            className={`${styles.input} pl-10`}
+                            className={styles.input}
                             required 
                         />
                     </div>
 
-                    <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                    <div className={styles.inputGroup}>
+                        <Lock className={styles.inputIcon} />
                         <input 
                             type="password" 
                             placeholder="Password" 
                             value={password} 
                             onChange={(e) => setPassword(e.target.value)} 
-                            className={`${styles.input} pl-10`}
+                            className={styles.input}
                             required 
                         />
                     </div>
@@ -85,31 +86,36 @@ export const LoginPage = () => {
                     >
                         {loading ? (
                             <>
-                                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                                Signing In...
+                                <div className={styles.spinner}></div>
+                                Authenticating...
                             </>
                         ) : (
                             <>
-                                <LogIn className="w-5 h-5 mr-2" />
+                                <Zap className="w-5 h-5 mr-2" />
                                 Sign In
                             </>
                         )}
                     </button>
                 </form>
 
-                <div className={styles.linkText}>
-                    Don't have an account? <Link to="/register" className={styles.link}>Create Account</Link>
+                <div className={styles.linkSection}>
+                    <p className={styles.linkText}>
+                        New to ReelCV? <Link to="/register" className={styles.link}>Create Your Account</Link>
+                    </p>
                 </div>
 
-                <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                    <div className="text-center">
-                        <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
-                            Demo Accounts:
-                        </p>
-                        <div className="text-xs text-gray-600 dark:text-gray-400 space-y-1">
-                            <div>Candidate: candidate@demo.com / password</div>
-                            <div>Proctor: proctor@demo.com / password</div>
+                <div className={styles.demoSection}>
+                    <div className={styles.demoTitle}>Demo Accounts</div>
+                    <div className={styles.demoCredentials}>
+                        <div className={styles.demoItem}>
+                            <span className={styles.demoRole}>Candidate:</span>
+                            <span className={styles.demoEmail}>candidate@demo.com</span>
                         </div>
+                        <div className={styles.demoItem}>
+                            <span className={styles.demoRole}>Proctor:</span>
+                            <span className={styles.demoEmail}>proctor@demo.com</span>
+                        </div>
+                        <div className={styles.demoPassword}>Password: password</div>
                     </div>
                 </div>
             </div>
