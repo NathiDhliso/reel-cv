@@ -34,6 +34,33 @@
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .userSection {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .buttonGroup {
+    order: 3;
+  }
+}
+
+@media (max-width: 640px) {
+  .headerContent {
+    padding: 0.75rem;
+  }
+  
+  .userSection {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .buttonGroup {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
@@ -41,6 +68,15 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .brandSection {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
 }
 
 .logo {
@@ -57,6 +93,12 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+}
+
+@media (max-width: 480px) {
+  .brandName {
+    font-size: 1.25rem;
+  }
 }
 
 .tagline {
@@ -88,6 +130,15 @@
 .welcomeText {
   color: #1F2937;
   font-weight: 500;
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .welcomeText {
+    font-size: 0.875rem;
+    white-space: normal;
+    text-align: center;
+  }
 }
 
 .navLink {
@@ -99,6 +150,7 @@
   transition: all 0.3s ease;
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
+  white-space: nowrap;
 }
 
 .navLink:hover {
@@ -110,6 +162,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .authButton {
@@ -126,12 +179,20 @@
   box-shadow: 0 4px 15px -3px rgba(0, 71, 171, 0.3);
   border: none;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .authButton:hover {
   background: linear-gradient(135deg, #8A2BE2 0%, #0047AB 100%);
   box-shadow: 0 10px 25px -5px rgba(0, 71, 171, 0.4);
   transform: scale(1.05);
+}
+
+@media (max-width: 480px) {
+  .authButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
 }
 
 .themeToggleButton {
@@ -150,6 +211,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .themeToggleButton:hover {
@@ -168,6 +230,12 @@
   margin: 0 auto;
   padding: 2rem 1.5rem;
   min-height: calc(100vh - 80px);
+}
+
+@media (max-width: 768px) {
+  .mainContent {
+    padding: 1.5rem 1rem;
+  }
 }
 
 .welcomeContainer {
