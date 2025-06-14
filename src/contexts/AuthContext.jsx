@@ -15,15 +15,26 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [permissions, setPermissions] = useState([]);
+
+    // API base URL - will be AWS Lambda after migration
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
     const syncUserData = async (authUser) => {
         if (!authUser) return null;
 
         try {
-            // Check if user exists in our User table
+            // Check if user exists in our User table with role information
             const { data: existingUser, error: fetchError } = await supabase
                 .from('User')
-                .select('*')
+                .select(`
+                    *,
+                    roles (
+                        id,
+                        name,
+                        description
+                    )
+                `)
                 .eq('id', authUser.id)
                 .single();
 
@@ -32,8 +43,22 @@ export const AuthProvider = ({ children }) => {
                 return null;
             }
 
-            // If user doesn't exist, create them
+            // If user doesn't exist, create them with role_id
             if (!existingUser) {
+                const defaultRole = authUser.user_metadata?.role || 'candidate';
+                
+                // Get role_id for the default role
+                const { data: roleData, error: roleError } = await supabase
+                    .from('roles')
+                    .select('id')
+                    .eq('name', defaultRole)
+                    .single();
+
+                if (roleError) {
+                    console.error('Error fetching role:', roleError);
+                    return null;
+                }
+
                 const { data: newUser, error: insertError } = await supabase
                     .from('User')
                     .insert([{
@@ -41,9 +66,17 @@ export const AuthProvider = ({ children }) => {
                         email: authUser.email,
                         firstName: authUser.user_metadata?.firstName || authUser.user_metadata?.first_name || '',
                         lastName: authUser.user_metadata?.lastName || authUser.user_metadata?.last_name || '',
-                        role: authUser.user_metadata?.role || 'candidate'
+                        role: defaultRole,
+                        role_id: roleData.id
                     }])
-                    .select()
+                    .select(`
+                        *,
+                        roles (
+                            id,
+                            name,
+                            description
+                        )
+                    `)
                     .single();
 
                 if (insertError) {
@@ -61,19 +94,40 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const fetchUserPermissions = async (userId) => {
+        try {
+            const { data, error } = await supabase
+                .rpc('get_user_permissions', { user_id: userId });
+
+            if (error) {
+                console.error('Error fetching permissions:', error);
+                return [];
+            }
+
+            return data.map(p => p.permission_name);
+        } catch (error) {
+            console.error('Error fetching permissions:', error);
+            return [];
+        }
+    };
+
     useEffect(() => {
         // Check for an active session
         supabase.auth.getSession().then(async ({ data: { session } }) => {
             if (session?.user) {
                 const userData = await syncUserData(session.user);
                 if (userData) {
+                    const userPermissions = await fetchUserPermissions(userData.id);
                     setUser({
                         id: userData.id,
                         email: userData.email,
                         firstName: userData.firstName,
                         lastName: userData.lastName,
-                        role: userData.role
+                        role: userData.role,
+                        role_id: userData.role_id,
+                        roleInfo: userData.roles
                     });
+                    setPermissions(userPermissions);
                     setToken(session.access_token);
                 }
             }
@@ -86,17 +140,22 @@ export const AuthProvider = ({ children }) => {
                 if (session?.user) {
                     const userData = await syncUserData(session.user);
                     if (userData) {
+                        const userPermissions = await fetchUserPermissions(userData.id);
                         setUser({
                             id: userData.id,
                             email: userData.email,
                             firstName: userData.firstName,
                             lastName: userData.lastName,
-                            role: userData.role
+                            role: userData.role,
+                            role_id: userData.role_id,
+                            roleInfo: userData.roles
                         });
+                        setPermissions(userPermissions);
                         setToken(session.access_token);
                     }
                 } else {
                     setUser(null);
+                    setPermissions([]);
                     setToken(null);
                 }
                 setLoading(false);
@@ -110,6 +169,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = async (email, password) => {
+        // Use Supabase Auth for now, but this could be migrated to AWS Lambda
         const { data, error } = await supabase.auth.signInWithPassword({ 
             email, 
             password 
@@ -123,6 +183,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async (email, password, firstName, lastName) => {
+        // Use Supabase Auth for now, but this could be migrated to AWS Lambda
         const { data, error } = await supabase.auth.signUp({
             email,
             password,
@@ -147,16 +208,24 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         await supabase.auth.signOut();
         setUser(null);
+        setPermissions([]);
         setToken(null);
+    };
+
+    const hasPermission = (permission) => {
+        return permissions.includes(permission);
     };
 
     const value = {
         user,
         token,
         loading,
+        permissions,
         login,
         register,
-        logout
+        logout,
+        hasPermission,
+        API_BASE_URL
     };
 
     return (

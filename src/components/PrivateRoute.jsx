@@ -2,8 +2,8 @@ import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Navigate, Outlet } from 'react-router-dom';
 
-export const PrivateRoute = ({ children, requiredRole }) => {
-    const { token, user, loading } = useAuth();
+export const PrivateRoute = ({ children, requiredRole, requiredPermission }) => {
+    const { token, user, loading, hasPermission } = useAuth();
     
     if (loading) {
         return (
@@ -20,7 +20,13 @@ export const PrivateRoute = ({ children, requiredRole }) => {
         return <Navigate to="/login" replace />;
     }
     
+    // Check role-based access (legacy support)
     if (requiredRole && user?.role !== requiredRole) {
+        return <Navigate to="/dashboard" replace />;
+    }
+    
+    // Check permission-based access (new RBAC system)
+    if (requiredPermission && !hasPermission(requiredPermission)) {
         return <Navigate to="/dashboard" replace />;
     }
     
