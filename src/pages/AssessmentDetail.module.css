@@ -1,13 +1,24 @@
 .detailContainer {
   @apply w-full max-w-6xl mx-auto;
+  border: 1px solid rgba(229, 231, 235, 0.3);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
 }
 
 .detailHeader {
-  @apply flex items-center justify-between mb-8 pb-6 border-b border-gray-200 dark:border-gray-700;
+  @apply flex items-center justify-between mb-8 pb-6;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
 }
 
 .backButton {
   @apply inline-flex items-center px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-deep-ocean-blue dark:hover:text-hopeful-turquoise transition-colors duration-300 font-medium;
+  border: 1px solid rgba(229, 231, 235, 0.3);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
 }
 
 .headerInfo {
@@ -16,10 +27,12 @@
 
 .detailTitle {
   @apply text-3xl font-bold text-deep-ocean-blue dark:text-hopeful-turquoise;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .statusBadge {
-  @apply px-4 py-2 rounded-lg font-semibold text-sm border;
+  @apply px-4 py-2 rounded-lg font-semibold text-sm;
+  border: 1px solid rgba(229, 231, 235, 0.3);
 }
 
 .loadingContainer {
@@ -52,14 +65,21 @@
 
 .videoSection {
   @apply lg:col-span-2;
+  border: 1px solid rgba(229, 231, 235, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
 }
 
 .sectionTitle {
   @apply flex items-center text-xl font-bold text-gray-800 dark:text-gray-200 mb-4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .videoContainer {
   @apply bg-black rounded-lg overflow-hidden shadow-lg;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .videoPlayer {
@@ -68,6 +88,7 @@
 
 .noVideo {
   @apply bg-gray-100 dark:bg-gray-800 rounded-lg p-12 text-center text-gray-500 dark:text-gray-400;
+  border: 1px solid rgba(229, 231, 235, 0.3);
 }
 
 .analysisSection {
@@ -75,11 +96,15 @@
 }
 
 .analysisCard {
-  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700;
+  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg;
+  border: 1px solid rgba(229, 231, 235, 0.3);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 .ratingDisplay {
-  @apply flex items-center justify-between mb-4 pb-4 border-b border-gray-200 dark:border-gray-700;
+  @apply flex items-center justify-between mb-4 pb-4;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.3);
 }
 
 .ratingLabel {
@@ -88,6 +113,7 @@
 
 .ratingValue {
   @apply text-2xl font-bold text-deep-ocean-blue dark:text-hopeful-turquoise;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .feedbackSection {
@@ -100,6 +126,8 @@
 
 .feedbackText {
   @apply text-gray-600 dark:text-gray-400 leading-relaxed;
+  border-left: 2px solid rgba(0, 71, 171, 0.1);
+  padding-left: 1rem;
 }
 
 .proctorSection {
@@ -107,7 +135,10 @@
 }
 
 .requestSection {
-  @apply bg-gradient-to-r from-growth-green/10 to-deep-ocean-blue/10 p-6 rounded-xl border border-growth-green/20;
+  @apply p-6 rounded-xl;
+  background: linear-gradient(135deg, rgba(46, 139, 87, 0.1) 0%, rgba(0, 71, 171, 0.1) 100%);
+  border: 1px solid rgba(46, 139, 87, 0.2);
+  backdrop-filter: blur(5px);
 }
 
 .requestDescription {
@@ -116,10 +147,14 @@
 
 .requestButton {
   @apply w-full px-6 py-3 bg-growth-green text-white font-semibold rounded-lg hover:bg-growth-green/90 transition-all duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed;
+  border: 1px solid rgba(46, 139, 87, 0.2);
+  box-shadow: 0 4px 15px -3px rgba(46, 139, 87, 0.3);
 }
 
 .pendingSection {
-  @apply bg-innovation-purple/10 p-6 rounded-xl text-center border border-innovation-purple/20;
+  @apply bg-innovation-purple/10 p-6 rounded-xl text-center;
+  border: 1px solid rgba(138, 43, 226, 0.2);
+  backdrop-filter: blur(5px);
 }
 
 .pendingTitle {
@@ -131,7 +166,10 @@
 }
 
 .verificationForm {
-  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 space-y-4;
+  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg space-y-4;
+  border: 1px solid rgba(229, 231, 235, 0.3);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 .formGroup {
@@ -143,27 +181,37 @@
 }
 
 .formInput {
-  @apply w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent;
+  @apply w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent;
+  border: 1px solid rgba(229, 231, 235, 0.5);
 }
 
 .formSelect {
-  @apply w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent;
+  @apply w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent;
+  border: 1px solid rgba(229, 231, 235, 0.5);
 }
 
 .formTextarea {
-  @apply w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent resize-vertical;
+  @apply w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent resize-vertical;
+  border: 1px solid rgba(229, 231, 235, 0.5);
 }
 
 .submitButton {
   @apply w-full px-6 py-3 bg-deep-ocean-blue text-white font-semibold rounded-lg hover:bg-deep-ocean-blue/90 transition-all duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed;
+  border: 1px solid rgba(0, 71, 171, 0.2);
+  box-shadow: 0 4px 15px -3px rgba(0, 71, 171, 0.3);
 }
 
 .verifiedSection {
-  @apply bg-gradient-to-r from-deep-ocean-blue/10 to-growth-green/10 p-6 rounded-xl border border-deep-ocean-blue/20;
+  @apply p-6 rounded-xl;
+  background: linear-gradient(135deg, rgba(0, 71, 171, 0.1) 0%, rgba(46, 139, 87, 0.1) 100%);
+  border: 1px solid rgba(0, 71, 171, 0.2);
+  backdrop-filter: blur(5px);
 }
 
 .verifiedHeader {
   @apply text-center mb-6;
+  border-bottom: 1px solid rgba(0, 71, 171, 0.1);
+  padding-bottom: 1rem;
 }
 
 .verifiedTitle {
@@ -180,10 +228,14 @@
 
 .integrityStatus {
   @apply inline-block px-4 py-2 rounded-lg font-medium text-sm;
+  border: 1px solid rgba(229, 231, 235, 0.3);
 }
 
 .proctorFeedback {
-  @apply bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700;
+  @apply bg-white dark:bg-gray-800 p-4 rounded-lg;
+  border: 1px solid rgba(229, 231, 235, 0.3);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
 }
 
 .candidateSection {
@@ -191,5 +243,100 @@
 }
 
 .candidateCard {
-  @apply bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 space-y-2;
+  @apply bg-white dark:bg-gray-800 p-4 rounded-lg space-y-2;
+  border: 1px solid rgba(229, 231, 235, 0.3);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+}
+
+/* Dark mode adjustments */
+:global(.dark) .detailContainer {
+  border-color: rgba(75, 85, 99, 0.3);
+  background: rgba(31, 41, 55, 0.02);
+}
+
+:global(.dark) .detailHeader {
+  border-bottom-color: rgba(75, 85, 99, 0.5);
+}
+
+:global(.dark) .backButton {
+  border-color: rgba(75, 85, 99, 0.3);
+  background: rgba(31, 41, 55, 0.5);
+}
+
+:global(.dark) .statusBadge {
+  border-color: rgba(75, 85, 99, 0.3);
+}
+
+:global(.dark) .videoSection {
+  border-color: rgba(75, 85, 99, 0.2);
+  background: rgba(31, 41, 55, 0.05);
+}
+
+:global(.dark) .noVideo {
+  border-color: rgba(75, 85, 99, 0.3);
+}
+
+:global(.dark) .analysisCard {
+  border-color: rgba(75, 85, 99, 0.3);
+  background: rgba(31, 41, 55, 0.8);
+}
+
+:global(.dark) .ratingDisplay {
+  border-bottom-color: rgba(75, 85, 99, 0.3);
+}
+
+:global(.dark) .feedbackText {
+  border-left-color: rgba(64, 224, 208, 0.1);
+}
+
+:global(.dark) .requestSection {
+  background: linear-gradient(135deg, rgba(64, 224, 208, 0.1) 0%, rgba(46, 139, 87, 0.1) 100%);
+  border-color: rgba(64, 224, 208, 0.2);
+}
+
+:global(.dark) .requestButton {
+  border-color: rgba(46, 139, 87, 0.3);
+}
+
+:global(.dark) .pendingSection {
+  border-color: rgba(138, 43, 226, 0.3);
+}
+
+:global(.dark) .verificationForm {
+  border-color: rgba(75, 85, 99, 0.3);
+  background: rgba(31, 41, 55, 0.8);
+}
+
+:global(.dark) .formInput,
+:global(.dark) .formSelect,
+:global(.dark) .formTextarea {
+  border-color: rgba(75, 85, 99, 0.5);
+}
+
+:global(.dark) .submitButton {
+  border-color: rgba(64, 224, 208, 0.2);
+}
+
+:global(.dark) .verifiedSection {
+  background: linear-gradient(135deg, rgba(64, 224, 208, 0.1) 0%, rgba(46, 139, 87, 0.1) 100%);
+  border-color: rgba(64, 224, 208, 0.2);
+}
+
+:global(.dark) .verifiedHeader {
+  border-bottom-color: rgba(64, 224, 208, 0.1);
+}
+
+:global(.dark) .integrityStatus {
+  border-color: rgba(75, 85, 99, 0.3);
+}
+
+:global(.dark) .proctorFeedback {
+  border-color: rgba(75, 85, 99, 0.3);
+  background: rgba(31, 41, 55, 0.8);
+}
+
+:global(.dark) .candidateCard {
+  border-color: rgba(75, 85, 99, 0.3);
+  background: rgba(31, 41, 55, 0.8);
 }

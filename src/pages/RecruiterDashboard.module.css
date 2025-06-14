@@ -1,9 +1,16 @@
 .dashboardContainer {
   @apply w-full max-w-7xl mx-auto;
+  border: 1px solid rgba(229, 231, 235, 0.3);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
 }
 
 .dashboardHeader {
-  @apply mb-8 pb-6 border-b border-gray-200 dark:border-gray-700;
+  @apply mb-8 pb-6;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
 }
 
 .headerContent {
@@ -12,6 +19,7 @@
 
 .dashboardTitle {
   @apply text-4xl font-bold text-deep-ocean-blue dark:text-hopeful-turquoise;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dashboardSubtitle {
@@ -19,7 +27,8 @@
 }
 
 .recruiterBadge {
-  @apply inline-flex items-center px-4 py-2 bg-innovation-purple/10 text-innovation-purple font-semibold rounded-lg border border-innovation-purple/20;
+  @apply inline-flex items-center px-4 py-2 bg-innovation-purple/10 text-innovation-purple font-semibold rounded-lg;
+  border: 1px solid rgba(138, 43, 226, 0.2);
 }
 
 .loadingContainer {
@@ -35,7 +44,8 @@
 }
 
 .errorMessage {
-  @apply mb-6 p-4 bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-lg border border-red-200 dark:border-red-800;
+  @apply mb-6 p-4 bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-lg;
+  border: 1px solid rgba(220, 38, 38, 0.2);
 }
 
 .statsGrid {
@@ -43,7 +53,10 @@
 }
 
 .statCard {
-  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 flex items-center space-x-4;
+  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg flex items-center space-x-4;
+  border: 1px solid rgba(229, 231, 235, 0.3);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 .statIcon {
@@ -60,10 +73,14 @@
 
 .statValue {
   @apply text-2xl font-bold text-deep-ocean-blue dark:text-hopeful-turquoise;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .controlsSection {
-  @apply flex flex-col md:flex-row gap-4 mb-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700;
+  @apply flex flex-col md:flex-row gap-4 mb-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg;
+  border: 1px solid rgba(229, 231, 235, 0.3);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 .searchContainer {
@@ -75,7 +92,8 @@
 }
 
 .searchInput {
-  @apply w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300;
+  @apply w-full pl-10 pr-4 py-3 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300;
+  border: 1px solid rgba(229, 231, 235, 0.5);
 }
 
 .filterContainer {
@@ -87,27 +105,40 @@
 }
 
 .filterInput {
-  @apply w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300;
+  @apply w-full pl-10 pr-4 py-3 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300;
+  border: 1px solid rgba(229, 231, 235, 0.5);
 }
 
 .resultsSection {
   @apply mb-8;
+  border: 1px solid rgba(229, 231, 235, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
 }
 
 .resultsHeader {
   @apply flex items-center justify-between mb-6;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.2);
+  padding-bottom: 1rem;
 }
 
 .sectionTitle {
   @apply text-2xl font-bold text-gray-800 dark:text-gray-200;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .clearFiltersButton {
   @apply px-4 py-2 text-sm font-medium text-deep-ocean-blue dark:text-hopeful-turquoise hover:bg-deep-ocean-blue/10 dark:hover:bg-hopeful-turquoise/10 rounded-lg transition-all duration-300;
+  border: 1px solid rgba(0, 71, 171, 0.2);
 }
 
 .emptyState {
   @apply text-center py-16 bg-white dark:bg-gray-800 rounded-xl shadow-lg;
+  border: 1px solid rgba(229, 231, 235, 0.3);
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
 }
 
 .emptyTitle {
@@ -124,6 +155,11 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .dashboardContainer {
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+  }
+  
   .dashboardTitle {
     @apply text-3xl;
   }
@@ -138,14 +174,24 @@
   
   .controlsSection {
     @apply flex-col gap-4;
+    padding: 1.5rem;
   }
   
   .candidatesGrid {
     @apply grid-cols-1;
   }
+  
+  .resultsSection {
+    padding: 1.5rem;
+  }
 }
 
 @media (max-width: 640px) {
+  .dashboardContainer {
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+  
   .dashboardTitle {
     @apply text-2xl;
   }
@@ -157,4 +203,55 @@
   .resultsHeader {
     @apply flex-col items-start gap-3;
   }
+  
+  .controlsSection {
+    padding: 1rem;
+  }
+  
+  .resultsSection {
+    padding: 1rem;
+  }
+}
+
+/* Dark mode adjustments */
+:global(.dark) .dashboardContainer {
+  border-color: rgba(75, 85, 99, 0.3);
+  background: rgba(31, 41, 55, 0.02);
+}
+
+:global(.dark) .dashboardHeader {
+  border-bottom-color: rgba(75, 85, 99, 0.5);
+}
+
+:global(.dark) .statCard {
+  border-color: rgba(75, 85, 99, 0.3);
+  background: rgba(31, 41, 55, 0.8);
+}
+
+:global(.dark) .controlsSection {
+  border-color: rgba(75, 85, 99, 0.3);
+  background: rgba(31, 41, 55, 0.8);
+}
+
+:global(.dark) .searchInput,
+:global(.dark) .filterInput {
+  border-color: rgba(75, 85, 99, 0.5);
+}
+
+:global(.dark) .resultsSection {
+  border-color: rgba(75, 85, 99, 0.2);
+  background: rgba(31, 41, 55, 0.05);
+}
+
+:global(.dark) .resultsHeader {
+  border-bottom-color: rgba(75, 85, 99, 0.2);
+}
+
+:global(.dark) .clearFiltersButton {
+  border-color: rgba(64, 224, 208, 0.2);
+}
+
+:global(.dark) .emptyState {
+  border-color: rgba(75, 85, 99, 0.3);
+  background: rgba(31, 41, 55, 0.8);
 }
