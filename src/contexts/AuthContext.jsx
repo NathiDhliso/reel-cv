@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import axios from 'axios';
+import { supabase } from '../supabaseClient';
 
 const AuthContext = createContext();
 
@@ -13,76 +13,99 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [token, setToken] = useState(() => localStorage.getItem('token'));
+    const [token, setToken] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (token) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            // Decode the token to get user info
-            try {
-                const payload = JSON.parse(atob(token.split('.')[1]));
-                // Check if token is expired
-                if (payload.exp && payload.exp * 1000 < Date.now()) {
-                    // Token is expired
-                    logout();
-                } else {
-                    setUser({
-                        id: payload.id,
-                        email: payload.email,
-                        role: payload.role,
-                        firstName: payload.firstName
-                    });
-                }
-            } catch (error) {
-                console.error('Error decoding token:', error);
-                logout();
+        // Check for an active session
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            if (session?.user) {
+                setUser({
+                    id: session.user.id,
+                    email: session.user.email,
+                    firstName: session.user.user_metadata?.firstName || session.user.user_metadata?.first_name,
+                    lastName: session.user.user_metadata?.lastName || session.user.user_metadata?.last_name,
+                    role: session.user.user_metadata?.role || 'candidate'
+                });
+                setToken(session.access_token);
             }
-        }
-        setLoading(false);
-    }, [token]);
+            setLoading(false);
+        });
+
+        // Listen for changes in auth state (login, logout)
+        const { data: authListener } = supabase.auth.onAuthStateChange(
+            async (event, session) => {
+                if (session?.user) {
+                    setUser({
+                        id: session.user.id,
+                        email: session.user.email,
+                        firstName: session.user.user_metadata?.firstName || session.user.user_metadata?.first_name,
+                        lastName: session.user.user_metadata?.lastName || session.user.user_metadata?.last_name,
+                        role: session.user.user_metadata?.role || 'candidate'
+                    });
+                    setToken(session.access_token);
+                } else {
+                    setUser(null);
+                    setToken(null);
+                }
+                setLoading(false);
+            }
+        );
+
+        // Cleanup the listener when the component unmounts
+        return () => {
+            authListener.subscription.unsubscribe();
+        };
+    }, []);
 
     const login = async (email, password) => {
-        try {
-            const { data } = await axios.post('/api/auth/login', { email, password });
-            localStorage.setItem('token', data.accessToken);
-            setToken(data.accessToken);
-            setUser(data.user);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
-            return data;
-        } catch (error) {
-            throw error;
+        const { data, error } = await supabase.auth.signInWithPassword({ 
+            email, 
+            password 
+        });
+        
+        if (error) {
+            throw new Error(error.message);
         }
+        
+        return data;
     };
 
     const register = async (email, password, firstName, lastName) => {
-        try {
-            const { data } = await axios.post('/api/auth/register', { 
-                email, 
-                password, 
-                firstName, 
-                lastName 
-            });
-            return data;
-        } catch (error) {
-            throw error;
+        const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+            options: {
+                data: {
+                    firstName,
+                    lastName,
+                    first_name: firstName,
+                    last_name: lastName,
+                    role: 'candidate'
+                }
+            }
+        });
+        
+        if (error) {
+            throw new Error(error.message);
         }
+        
+        return data;
     };
 
-    const logout = () => {
-        localStorage.removeItem('token');
-        setToken(null);
+    const logout = async () => {
+        await supabase.auth.signOut();
         setUser(null);
-        delete axios.defaults.headers.common['Authorization'];
+        setToken(null);
     };
 
-    const value = { 
-        user, 
-        token, 
+    const value = {
+        user,
+        token,
         loading,
-        login, 
+        login,
         register,
-        logout 
+        logout
     };
 
     return (

@@ -1,19 +1,13 @@
 [build]
   command = "npm install && npm run build"
   publish = "dist"
-  functions = "netlify/functions"
 
-# ADD THIS WHOLE BLOCK
 [dev]
-  command = "npm run dev:vite" # We will add this script next
+  command = "npm run dev:vite"
   port = 8888
   targetPort = 5173
 
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
-  status = 200
-
+# This redirect is for client-side routing, it should stay
 [[redirects]]
   from = "/*"
   to = "/index.html"

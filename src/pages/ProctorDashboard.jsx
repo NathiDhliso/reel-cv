@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Eye, CheckCircle, Clock, Users } from 'lucide-react';
+import { supabase } from '../supabaseClient';
 import styles from './Dashboard.module.css';
 
 export const ProctorDashboard = () => {
@@ -17,13 +17,48 @@ export const ProctorDashboard = () => {
 
     const fetchData = async () => {
         try {
-            const [pendingResponse, completedResponse] = await Promise.all([
-                axios.get('/api/proctor/requests/pending'),
-                axios.get('/api/proctor/verifications')
-            ]);
-            setPendingRequests(pendingResponse.data);
-            setCompletedVerifications(completedResponse.data);
+            // Fetch pending requests
+            const { data: pending, error: pendingError } = await supabase
+                .from('Assessment')
+                .select(`
+                    *,
+                    Skill (
+                        name
+                    ),
+                    User!Assessment_candidateId_fkey (
+                        firstName,
+                        lastName
+                    )
+                `)
+                .eq('status', 'proctor_requested')
+                .order('created_at', { ascending: true });
+
+            if (pendingError) throw pendingError;
+
+            // Fetch completed verifications by current proctor
+            const { data: { user } } = await supabase.auth.getUser();
+            const { data: completed, error: completedError } = await supabase
+                .from('Assessment')
+                .select(`
+                    *,
+                    Skill (
+                        name
+                    ),
+                    User!Assessment_candidateId_fkey (
+                        firstName,
+                        lastName
+                    )
+                `)
+                .eq('proctorId', user.id)
+                .eq('status', 'proctor_verified')
+                .order('created_at', { ascending: false });
+
+            if (completedError) throw completedError;
+
+            setPendingRequests(pending || []);
+            setCompletedVerifications(completed || []);
         } catch (err) {
+            console.error('Error fetching proctor data:', err);
             setError('Failed to load proctor data');
         } finally {
             setLoading(false);

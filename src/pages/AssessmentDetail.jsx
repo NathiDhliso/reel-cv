@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useAuth } from '../contexts/AuthContext';
 import { ArrowLeft, Play, Star, Eye, CheckCircle, AlertTriangle, Shield } from 'lucide-react';
+import { supabase } from '../supabaseClient';
 import styles from './AssessmentDetail.module.css';
 
 export const AssessmentDetail = () => {
@@ -25,9 +25,32 @@ export const AssessmentDetail = () => {
 
     const fetchAssessment = async () => {
         try {
-            const response = await axios.get(`/api/assessments/${id}`);
-            setAssessment(response.data);
+            const { data, error } = await supabase
+                .from('Assessment')
+                .select(`
+                    *,
+                    Skill (
+                        name
+                    ),
+                    User!Assessment_candidateId_fkey (
+                        firstName,
+                        lastName
+                    )
+                `)
+                .eq('id', id)
+                .single();
+            
+            if (error) throw error;
+            
+            // Check access permissions
+            if (user.role === 'candidate' && data.candidateId !== user.id) {
+                setError('Access denied');
+                return;
+            }
+            
+            setAssessment(data);
         } catch (err) {
+            console.error('Error fetching assessment:', err);
             setError('Failed to load assessment details');
         } finally {
             setLoading(false);
@@ -37,9 +60,17 @@ export const AssessmentDetail = () => {
     const handleRequestProctoring = async () => {
         setSubmitting(true);
         try {
-            await axios.post(`/api/assessments/${id}/request-proctor`);
+            const { error } = await supabase
+                .from('Assessment')
+                .update({ status: 'proctor_requested' })
+                .eq('id', id)
+                .eq('candidateId', user.id);
+            
+            if (error) throw error;
+            
             setAssessment(prev => ({ ...prev, status: 'proctor_requested' }));
         } catch (err) {
+            console.error('Error requesting proctor:', err);
             setError('Failed to request proctor verification');
         } finally {
             setSubmitting(false);
@@ -50,13 +81,22 @@ export const AssessmentDetail = () => {
         e.preventDefault();
         setSubmitting(true);
         try {
-            await axios.post(`/api/assessments/${id}/proctor-verify`, {
-                proctorRating: parseFloat(proctorRating),
-                proctorComments,
-                integrityStatus
-            });
+            const { error } = await supabase
+                .from('Assessment')
+                .update({
+                    status: 'proctor_verified',
+                    proctorId: user.id,
+                    proctorRating: parseFloat(proctorRating),
+                    proctorComments,
+                    integrityStatus
+                })
+                .eq('id', id);
+            
+            if (error) throw error;
+            
             await fetchAssessment(); // Refresh the data
         } catch (err) {
+            console.error('Error submitting verification:', err);
             setError('Failed to submit verification');
         } finally {
             setSubmitting(false);

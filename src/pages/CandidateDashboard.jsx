@@ -1,23 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Plus, Video, Clock, CheckCircle, AlertCircle } from 'lucide-react';
+import { supabase } from '../supabaseClient';
+import { useAuth } from '../contexts/AuthContext';
 import styles from './Dashboard.module.css';
 
 export const CandidateDashboard = () => {
     const [assessments, setAssessments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const { user } = useAuth();
 
     useEffect(() => {
-        fetchAssessments();
-    }, []);
+        if (user) {
+            fetchAssessments();
+        }
+    }, [user]);
 
     const fetchAssessments = async () => {
         try {
-            const response = await axios.get('/api/assessments');
-            setAssessments(Array.isArray(response.data) ? response.data : []);
+            const { data, error } = await supabase
+                .from('Assessment')
+                .select(`
+                    *,
+                    Skill (
+                        name
+                    )
+                `)
+                .eq('candidateId', user.id)
+                .order('created_at', { ascending: false });
+            
+            if (error) throw error;
+            
+            setAssessments(data || []);
         } catch (err) {
+            console.error('Error fetching assessments:', err);
             setError('Failed to load assessments');
         } finally {
             setLoading(false);

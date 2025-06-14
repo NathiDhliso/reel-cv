@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Upload, Video, CheckCircle } from 'lucide-react';
+import { supabase } from '../supabaseClient';
 import styles from './SkillSubmitForm.module.css';
-
-const API_URL = '/api';
 
 export const SkillSubmitForm = () => {
     const [file, setFile] = useState(null);
@@ -21,12 +19,19 @@ export const SkillSubmitForm = () => {
 
     const fetchSkills = async () => {
         try {
-            const response = await axios.get(`${API_URL}/skills`);
-            setSkills(response.data || []);
-            if (response.data && response.data.length > 0) {
-                setSelectedSkill(response.data[0].id);
+            const { data, error } = await supabase
+                .from('Skill')
+                .select('*')
+                .order('name');
+            
+            if (error) throw error;
+            
+            setSkills(data || []);
+            if (data && data.length > 0) {
+                setSelectedSkill(data[0].id);
             }
         } catch (error) {
+            console.error('Error fetching skills:', error);
             setMessage('Failed to load skills. Please try again.');
             setSkills([]);
         } finally {
@@ -42,6 +47,25 @@ export const SkillSubmitForm = () => {
         }
     };
 
+    const uploadFileToSupabase = async (file) => {
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+        const filePath = `assessments/${fileName}`;
+
+        const { data, error } = await supabase.storage
+            .from('assessment-videos')
+            .upload(filePath, file);
+
+        if (error) throw error;
+
+        // Get public URL
+        const { data: { publicUrl } } = supabase.storage
+            .from('assessment-videos')
+            .getPublicUrl(filePath);
+
+        return publicUrl;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!file) {
@@ -54,31 +78,33 @@ export const SkillSubmitForm = () => {
         }
 
         setUploading(true);
-        setMessage('Preparing secure upload...');
+        setMessage('Uploading video...');
         
         try {
-            // Get signed URL for upload
-            const { data: { signedUrl, publicUrl } } = await axios.post(`${API_URL}/get-signed-url`, {
-                fileName: file.name,
-                fileType: file.type,
-            });
-
-            setMessage('Uploading video...');
+            // Upload file to Supabase Storage
+            const videoUrl = await uploadFileToSupabase(file);
             
-            // Upload file to S3
-            await axios.put(signedUrl, file, { 
-                headers: { 'Content-Type': file.type } 
-            });
-
-            setMessage('Finalizing submission...');
+            setMessage('Creating assessment...');
             
-            // Submit assessment
-            const { data: assessment } = await axios.post(`${API_URL}/skills/submit`, {
-                skillId: selectedSkill,
-                videoUrl: publicUrl,
-            });
+            // Get current user
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) throw new Error('User not authenticated');
 
-            setMessage('Success! Assessment submitted. AI analysis is now in progress...');
+            // Create assessment record
+            const { data: assessment, error } = await supabase
+                .from('Assessment')
+                .insert([{
+                    skillId: selectedSkill,
+                    videoUrl: videoUrl,
+                    candidateId: user.id,
+                    status: 'pending_AI_analysis'
+                }])
+                .select('id')
+                .single();
+
+            if (error) throw error;
+
+            setMessage('Success! Assessment submitted. AI analysis will begin shortly...');
             
             // Redirect to assessment detail after a short delay
             setTimeout(() => {
@@ -87,7 +113,7 @@ export const SkillSubmitForm = () => {
             
         } catch (error) {
             console.error('Upload error:', error);
-            setMessage('Upload failed. Please check your connection and try again.');
+            setMessage(`Upload failed: ${error.message}. Please try again.`);
         } finally {
             setUploading(false);
         }
