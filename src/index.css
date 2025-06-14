@@ -7,11 +7,20 @@
 @layer base {
   html {
     @apply scroll-smooth;
+    overflow-x: hidden;
   }
   
   body {
     @apply font-sans antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+  
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
   
   /* Ensure proper dark mode transitions */
@@ -74,4 +83,9 @@
 .light textarea,
 .light select {
   color-scheme: light;
+}
+
+/* Remove any potential scrollbars from hidden elements */
+#root {
+  overflow-x: hidden;
 }

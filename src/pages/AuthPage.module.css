@@ -1,4 +1,8 @@
 .pageContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
   height: 100vh;
   background: linear-gradient(135deg, 
     rgba(0, 71, 171, 0.05) 0%, 
@@ -7,8 +11,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem;
+  padding: 0;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .authContainer {
@@ -22,8 +27,9 @@
   border-radius: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
   transition: all 0.5s ease;
-  max-height: calc(100vh - 2rem);
+  max-height: 90vh;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .brandHeader {
@@ -83,13 +89,11 @@
     gap: 1rem;
   }
   
-  .pageContainer {
-    padding: 0.5rem;
-  }
-  
   .authContainer {
     padding: 1.25rem;
-    max-height: calc(100vh - 1rem);
+    max-height: 95vh;
+    margin: 0 0.5rem;
+    max-width: calc(100vw - 1rem);
   }
   
   .brandTitle {
@@ -104,6 +108,7 @@
 @media (max-height: 700px) {
   .authContainer {
     padding: 1rem;
+    max-height: 95vh;
   }
   
   .brandHeader {
@@ -145,6 +150,10 @@
   .featuresSection {
     margin-top: 1rem;
     padding-top: 1rem;
+  }
+  
+  .authContainer {
+    max-height: 98vh;
   }
 }
 
