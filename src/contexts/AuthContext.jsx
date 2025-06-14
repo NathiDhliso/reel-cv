@@ -3,7 +3,13 @@ import axios from 'axios';
 
 const AuthContext = createContext();
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (context === undefined) {
+        throw new Error('useAuth must be used within an AuthProvider');
+    }
+    return context;
+};
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -16,12 +22,18 @@ export const AuthProvider = ({ children }) => {
             // Decode the token to get user info
             try {
                 const payload = JSON.parse(atob(token.split('.')[1]));
-                setUser({
-                    id: payload.id,
-                    email: payload.email,
-                    role: payload.role,
-                    firstName: payload.firstName
-                });
+                // Check if token is expired
+                if (payload.exp && payload.exp * 1000 < Date.now()) {
+                    // Token is expired
+                    logout();
+                } else {
+                    setUser({
+                        id: payload.id,
+                        email: payload.email,
+                        role: payload.role,
+                        firstName: payload.firstName
+                    });
+                }
             } catch (error) {
                 console.error('Error decoding token:', error);
                 logout();
