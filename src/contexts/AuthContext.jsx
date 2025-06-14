@@ -13,8 +13,19 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (token) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            // You could add a route to verify token and get user info here
-            // For now, we'll just trust the stored token
+            // Decode the token to get user info
+            try {
+                const payload = JSON.parse(atob(token.split('.')[1]));
+                setUser({
+                    id: payload.id,
+                    email: payload.email,
+                    role: payload.role,
+                    firstName: payload.firstName
+                });
+            } catch (error) {
+                console.error('Error decoding token:', error);
+                logout();
+            }
         }
         setLoading(false);
     }, [token]);

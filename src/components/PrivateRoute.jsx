@@ -2,8 +2,8 @@ import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Navigate, Outlet } from 'react-router-dom';
 
-export const PrivateRoute = () => {
-    const { token, loading } = useAuth();
+export const PrivateRoute = ({ children, requiredRole }) => {
+    const { token, user, loading } = useAuth();
     
     if (loading) {
         return (
@@ -13,5 +13,13 @@ export const PrivateRoute = () => {
         );
     }
     
-    return token ? <Outlet /> : <Navigate to="/login" />;
+    if (!token) {
+        return <Navigate to="/login" replace />;
+    }
+    
+    if (requiredRole && user?.role !== requiredRole) {
+        return <Navigate to="/dashboard" replace />;
+    }
+    
+    return children || <Outlet />;
 };

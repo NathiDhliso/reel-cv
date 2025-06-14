@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 import { useTheme } from './contexts/ThemeContext';
 import { useAuth } from './contexts/AuthContext';
 import { SkillSubmitForm } from './components/SkillSubmitForm';
@@ -13,7 +13,18 @@ import styles from './App.module.css';
 
 function App() {
   const { theme, toggleTheme } = useTheme();
-  const { user, logout } = useAuth();
+  const { user, logout, loading } = useAuth();
+
+  // Show loading state while checking auth
+  if (loading) {
+    return (
+      <div className={styles.appContainer}>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-xl text-gray-600 dark:text-gray-400">Loading...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.appContainer}>
@@ -50,28 +61,62 @@ function App() {
       </header>
       <main className={styles.mainContent}>
         <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/" element={<PrivateRoute />}>
-            <Route path="/" element={
-              <div className={styles.welcomeContainer}>
-                <h1 className={styles.welcomeTitle}>Welcome to ReelCV</h1>
-                <p className={styles.welcomeSubtitle}>
-                  Showcase your skills through video assessments with AI analysis and professional proctoring.
-                </p>
-                <Link 
-                  to={user?.role === 'proctor' ? "/proctor-dashboard" : "/dashboard"} 
-                  className={styles.ctaButton}
-                >
-                  Go to Dashboard
-                </Link>
-              </div>
-            } />
-            <Route path="/submit-skill" element={<SkillSubmitForm />} />
-            <Route path="/dashboard" element={<CandidateDashboard />} />
-            <Route path="/proctor-dashboard" element={<ProctorDashboard />} />
-            <Route path="/assessment/:id" element={<AssessmentDetail />} />
-          </Route>
+          <Route path="/login" element={
+            user ? (
+              <Navigate to={user.role === 'proctor' ? "/proctor-dashboard" : "/dashboard"} replace />
+            ) : (
+              <LoginPage />
+            )
+          } />
+          <Route path="/register" element={
+            user ? (
+              <Navigate to={user.role === 'proctor' ? "/proctor-dashboard" : "/dashboard"} replace />
+            ) : (
+              <RegisterPage />
+            )
+          } />
+          
+          <Route path="/dashboard" element={
+            <PrivateRoute>
+              <CandidateDashboard />
+            </PrivateRoute>
+          } />
+          
+          <Route path="/proctor-dashboard" element={
+            <PrivateRoute requiredRole="proctor">
+              <ProctorDashboard />
+            </PrivateRoute>
+          } />
+          
+          <Route path="/assessment/:id" element={
+            <PrivateRoute>
+              <AssessmentDetail />
+            </PrivateRoute>
+          } />
+          
+          <Route path="/submit-skill" element={
+            <PrivateRoute>
+              <SkillSubmitForm />
+            </PrivateRoute>
+          } />
+          
+          {/* Root route */}
+          <Route path="/" element={
+            user ? (
+              <Navigate to={user.role === 'proctor' ? "/proctor-dashboard" : "/dashboard"} replace />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          } />
+          
+          {/* Catch-all route */}
+          <Route path="*" element={
+            user ? (
+              <Navigate to={user.role === 'proctor' ? "/proctor-dashboard" : "/dashboard"} replace />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          } />
         </Routes>
       </main>
     </div>
