@@ -49,34 +49,64 @@ const authenticateToken = (allowedRoles = ['candidate', 'proctor', 'admin']) => 
 router.post('/auth/register', async (req, res) => {
     const { email, password, firstName, lastName, role = 'candidate' } = req.body;
     
+    console.log('Registration attempt:', { email, firstName, lastName, role });
+    
     if (!email || !password) {
         return res.status(400).json({ error: 'Email and password are required.' });
     }
 
+    if (!firstName || !lastName) {
+        return res.status(400).json({ error: 'First name and last name are required.' });
+    }
+
     try {
+        // Check if user already exists
+        const { data: existingUser, error: checkError } = await supabase
+            .from('User')
+            .select('id')
+            .eq('email', email)
+            .single();
+
+        if (existingUser) {
+            return res.status(409).json({ error: 'User with this email already exists.' });
+        }
+
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(password, salt);
 
+        // Create user with proper field mapping
         const { data, error } = await supabase
             .from('User')
-            .insert([{ email, passwordHash, firstName, lastName, role }])
+            .insert([{ 
+                email, 
+                passwordHash, 
+                firstName, 
+                lastName, 
+                role: role || 'candidate'
+            }])
             .select('id, email, firstName, lastName, role')
             .single();
 
         if (error) {
-            console.error("Register error:", error);
-            return res.status(409).json({ error: 'User with this email already exists.' });
+            console.error("Supabase insert error:", error);
+            if (error.code === '23505') { // Unique constraint violation
+                return res.status(409).json({ error: 'User with this email already exists.' });
+            }
+            return res.status(500).json({ error: 'Failed to create user account. Please try again.' });
         }
 
+        console.log('User created successfully:', data);
         res.status(201).json({ message: 'User created successfully', user: data });
     } catch (error) {
-        console.error("Catch block register error:", error);
-        res.status(500).json({ error: 'Failed to create user.' });
+        console.error("Registration error:", error);
+        res.status(500).json({ error: 'Failed to create user account. Please try again.' });
     }
 });
 
 router.post('/auth/login', async (req, res) => {
     const { email, password } = req.body;
+    
+    console.log('Login attempt for:', email);
     
     try {
         const { data: user, error } = await supabase
@@ -86,6 +116,7 @@ router.post('/auth/login', async (req, res) => {
             .single();
 
         if (error || !user) {
+            console.log('User not found:', error);
             return res.status(404).json({ error: 'User not found.' });
         }
 
@@ -97,6 +128,7 @@ router.post('/auth/login', async (req, res) => {
         const payload = { id: user.id, email: user.email, role: user.role, firstName: user.firstName };
         const accessToken = jwt.sign(payload, process.env.REELCV_JWT_SECRET, { expiresIn: '1d' });
 
+        console.log('Login successful for:', email);
         res.json({
             accessToken,
             user: { 
@@ -272,6 +304,19 @@ router.get('/proctor/verifications', authenticateToken(['proctor']), async (req,
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch verifications.' });
     }
+});
+
+// Health check endpoint
+router.get('/health', (req, res) => {
+    res.json({ 
+        status: 'healthy', 
+        timestamp: new Date().toISOString(),
+        environment: {
+            hasSupabaseUrl: !!process.env.REELCV_SUPABASE_URL,
+            hasSupabaseKey: !!process.env.REELCV_SUPABASE_ANON_KEY,
+            hasJwtSecret: !!process.env.REELCV_JWT_SECRET
+        }
+    });
 });
 
 // AI Simulation Function
