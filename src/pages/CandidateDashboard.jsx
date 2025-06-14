@@ -16,7 +16,7 @@ export const CandidateDashboard = () => {
     const fetchAssessments = async () => {
         try {
             const response = await axios.get('/api/assessments');
-            setAssessments(response.data);
+            setAssessments(response.data || []);
         } catch (err) {
             setError('Failed to load assessments');
         } finally {
