@@ -1,0 +1,123 @@
+.formContainer {
+  @apply w-full max-w-2xl mx-auto p-8 bg-white dark:bg-gray-800 shadow-2xl rounded-xl;
+}
+
+.formHeader {
+  @apply text-center mb-8;
+}
+
+.title {
+  @apply text-3xl font-bold mb-2 text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.subtitle {
+  @apply mb-6 text-gray-600 dark:text-gray-400 leading-relaxed;
+}
+
+.loadingContainer {
+  @apply flex flex-col items-center justify-center py-16;
+}
+
+.loadingSpinner {
+  @apply w-8 h-8 border-4 border-deep-ocean-blue border-t-transparent rounded-full animate-spin mb-4;
+}
+
+.loadingText {
+  @apply text-gray-600 dark:text-gray-400;
+}
+
+.form {
+  @apply space-y-6 mb-8;
+}
+
+.formGroup {
+  @apply space-y-2;
+}
+
+.label {
+  @apply block text-sm font-semibold text-gray-700 dark:text-gray-300;
+}
+
+.skillSelect {
+  @apply w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300;
+}
+
+.noSkillsMessage {
+  @apply text-sm text-red-600 dark:text-red-400 mt-1;
+}
+
+.fileInputContainer {
+  @apply relative;
+}
+
+.fileInput {
+  @apply absolute inset-0 w-full h-full opacity-0 cursor-pointer;
+}
+
+.fileInputLabel {
+  @apply flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-300 cursor-pointer;
+}
+
+.fileInputText {
+  @apply text-sm font-medium text-gray-700 dark:text-gray-300;
+}
+
+.fileInputSubtext {
+  @apply text-xs text-gray-500 dark:text-gray-400 mt-1;
+}
+
+.submitButton {
+  @apply w-full flex items-center justify-center bg-deep-ocean-blue text-white font-bold py-4 px-6 rounded-lg hover:bg-opacity-90 focus:outline-none focus:ring-4 focus:ring-optimistic-yellow/50 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-300;
+}
+
+.buttonSpinner {
+  @apply w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2;
+}
+
+.feedbackMessage {
+  @apply mt-6 p-4 rounded-lg text-center font-semibold;
+}
+
+.successMessage {
+  @apply bg-growth-green/10 text-growth-green border border-growth-green/20;
+}
+
+.errorMessage {
+  @apply bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800;
+}
+
+.infoMessage {
+  @apply bg-blue-100 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800;
+}
+
+.infoSection {
+  @apply mt-8 pt-8 border-t border-gray-200 dark:border-gray-700;
+}
+
+.infoTitle {
+  @apply text-lg font-bold text-gray-800 dark:text-gray-200 mb-6 text-center;
+}
+
+.processSteps {
+  @apply space-y-4;
+}
+
+.step {
+  @apply flex items-start space-x-4;
+}
+
+.stepNumber {
+  @apply flex-shrink-0 w-8 h-8 bg-deep-ocean-blue text-white rounded-full flex items-center justify-center text-sm font-bold;
+}
+
+.stepContent {
+  @apply flex-1;
+}
+
+.stepTitle {
+  @apply font-semibold text-gray-800 dark:text-gray-200 mb-1;
+}
+
+.stepDescription {
+  @apply text-sm text-gray-600 dark:text-gray-400;
+}

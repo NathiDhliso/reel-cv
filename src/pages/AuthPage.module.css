@@ -1,0 +1,27 @@
+.authContainer {
+  @apply w-full max-w-sm mx-auto p-8 bg-white dark:bg-gray-800 shadow-2xl rounded-xl;
+}
+
+.title {
+  @apply text-3xl font-bold mb-6 text-center text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.input {
+  @apply w-full px-4 py-3 mb-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300;
+}
+
+.submitButton {
+  @apply w-full bg-deep-ocean-blue text-white font-bold py-3 px-4 rounded-lg hover:bg-opacity-90 focus:outline-none focus:ring-4 focus:ring-optimistic-yellow/50 disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-300;
+}
+
+.linkText {
+  @apply mt-6 text-center text-sm text-gray-600 dark:text-gray-400;
+}
+
+.link {
+  @apply font-semibold text-growth-green hover:text-growth-green/80 hover:underline transition-colors duration-300;
+}
+
+.error {
+  @apply mb-4 text-center text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/20 p-3 rounded-lg text-sm;
+}

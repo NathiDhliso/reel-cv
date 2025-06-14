@@ -1,0 +1,4 @@
+/* This file is for global styles and Tailwind directives only. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

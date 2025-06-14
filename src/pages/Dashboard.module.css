@@ -1,0 +1,151 @@
+.dashboardContainer {
+  @apply w-full max-w-7xl mx-auto;
+}
+
+.dashboardHeader {
+  @apply flex items-center justify-between mb-8 pb-6 border-b border-gray-200 dark:border-gray-700;
+}
+
+.dashboardTitle {
+  @apply text-4xl font-bold text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.submitButton {
+  @apply inline-flex items-center px-6 py-3 bg-growth-green text-white font-semibold rounded-lg hover:bg-growth-green/90 transition-all duration-300 shadow-lg hover:shadow-xl;
+}
+
+.proctorBadge {
+  @apply inline-flex items-center px-4 py-2 bg-innovation-purple/10 text-innovation-purple font-semibold rounded-lg border border-innovation-purple/20;
+}
+
+.loadingContainer {
+  @apply flex flex-col items-center justify-center py-16;
+}
+
+.loadingSpinner {
+  @apply w-12 h-12 border-4 border-deep-ocean-blue border-t-transparent rounded-full animate-spin mb-4;
+}
+
+.loadingText {
+  @apply text-gray-600 dark:text-gray-400 text-lg;
+}
+
+.errorMessage {
+  @apply mb-6 p-4 bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-lg border border-red-200 dark:border-red-800;
+}
+
+.statsGrid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8;
+}
+
+.statCard {
+  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700;
+}
+
+.statTitle {
+  @apply text-sm font-medium text-gray-600 dark:text-gray-400 mb-2;
+}
+
+.statValue {
+  @apply text-3xl font-bold text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.assessmentsSection {
+  @apply mb-8;
+}
+
+.sectionTitle {
+  @apply text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6;
+}
+
+.emptyState {
+  @apply text-center py-16 bg-white dark:bg-gray-800 rounded-xl shadow-lg;
+}
+
+.emptyTitle {
+  @apply text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2;
+}
+
+.emptyDescription {
+  @apply text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto;
+}
+
+.emptyButton {
+  @apply inline-block px-6 py-3 bg-deep-ocean-blue text-white font-semibold rounded-lg hover:bg-deep-ocean-blue/90 transition-all duration-300;
+}
+
+.assessmentGrid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+.assessmentCard {
+  @apply block bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:border-deep-ocean-blue/30 dark:hover:border-hopeful-turquoise/30 transition-all duration-300 transform hover:-translate-y-1;
+}
+
+.assessmentHeader {
+  @apply flex items-start justify-between mb-4;
+}
+
+.assessmentTitle {
+  @apply text-xl font-bold text-innovation-purple dark:text-hopeful-turquoise mb-2;
+}
+
+.statusBadge {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-700;
+}
+
+.statusText {
+  @apply ml-1;
+}
+
+.urgentBadge {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-optimistic-yellow/20 text-optimistic-yellow border border-optimistic-yellow/30;
+}
+
+.completedBadge {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-growth-green/20 text-growth-green border border-growth-green/30;
+}
+
+.assessmentDetails {
+  @apply space-y-3;
+}
+
+.ratingSection {
+  @apply flex items-center justify-between;
+}
+
+.ratingLabel {
+  @apply text-sm font-medium text-gray-600 dark:text-gray-400;
+}
+
+.ratingValue {
+  @apply text-lg font-bold text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.candidateInfo {
+  @apply flex items-center text-gray-600 dark:text-gray-400;
+}
+
+.submissionDate {
+  @apply text-sm text-gray-500 dark:text-gray-500;
+}
+
+.tabContainer {
+  @apply mb-8;
+}
+
+.tabButtons {
+  @apply flex space-x-1 mb-6 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg;
+}
+
+.tabButton {
+  @apply flex items-center px-4 py-2 rounded-md font-medium transition-all duration-300 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200;
+}
+
+.activeTab {
+  @apply bg-white dark:bg-gray-700 text-deep-ocean-blue dark:text-hopeful-turquoise shadow-sm;
+}
+
+.tabContent {
+  @apply min-h-[400px];
+}

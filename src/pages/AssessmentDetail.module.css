@@ -1,0 +1,195 @@
+.detailContainer {
+  @apply w-full max-w-6xl mx-auto;
+}
+
+.detailHeader {
+  @apply flex items-center justify-between mb-8 pb-6 border-b border-gray-200 dark:border-gray-700;
+}
+
+.backButton {
+  @apply inline-flex items-center px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-deep-ocean-blue dark:hover:text-hopeful-turquoise transition-colors duration-300 font-medium;
+}
+
+.headerInfo {
+  @apply flex items-center gap-4;
+}
+
+.detailTitle {
+  @apply text-3xl font-bold text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.statusBadge {
+  @apply px-4 py-2 rounded-lg font-semibold text-sm border;
+}
+
+.loadingContainer {
+  @apply flex flex-col items-center justify-center py-16;
+}
+
+.loadingSpinner {
+  @apply w-12 h-12 border-4 border-deep-ocean-blue border-t-transparent rounded-full animate-spin mb-4;
+}
+
+.loadingText {
+  @apply text-gray-600 dark:text-gray-400 text-lg;
+}
+
+.errorContainer {
+  @apply text-center py-16;
+}
+
+.errorTitle {
+  @apply text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4;
+}
+
+.errorMessage {
+  @apply text-red-600 dark:text-red-400 mb-6;
+}
+
+.contentGrid {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-8;
+}
+
+.videoSection {
+  @apply lg:col-span-2;
+}
+
+.sectionTitle {
+  @apply flex items-center text-xl font-bold text-gray-800 dark:text-gray-200 mb-4;
+}
+
+.videoContainer {
+  @apply bg-black rounded-lg overflow-hidden shadow-lg;
+}
+
+.videoPlayer {
+  @apply w-full h-auto max-h-96;
+}
+
+.noVideo {
+  @apply bg-gray-100 dark:bg-gray-800 rounded-lg p-12 text-center text-gray-500 dark:text-gray-400;
+}
+
+.analysisSection {
+  @apply space-y-4;
+}
+
+.analysisCard {
+  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700;
+}
+
+.ratingDisplay {
+  @apply flex items-center justify-between mb-4 pb-4 border-b border-gray-200 dark:border-gray-700;
+}
+
+.ratingLabel {
+  @apply text-sm font-medium text-gray-600 dark:text-gray-400;
+}
+
+.ratingValue {
+  @apply text-2xl font-bold text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.feedbackSection {
+  @apply space-y-2;
+}
+
+.feedbackTitle {
+  @apply font-semibold text-gray-800 dark:text-gray-200;
+}
+
+.feedbackText {
+  @apply text-gray-600 dark:text-gray-400 leading-relaxed;
+}
+
+.proctorSection {
+  @apply space-y-4;
+}
+
+.requestSection {
+  @apply bg-gradient-to-r from-growth-green/10 to-deep-ocean-blue/10 p-6 rounded-xl border border-growth-green/20;
+}
+
+.requestDescription {
+  @apply text-gray-700 dark:text-gray-300 mb-4;
+}
+
+.requestButton {
+  @apply w-full px-6 py-3 bg-growth-green text-white font-semibold rounded-lg hover:bg-growth-green/90 transition-all duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed;
+}
+
+.pendingSection {
+  @apply bg-innovation-purple/10 p-6 rounded-xl text-center border border-innovation-purple/20;
+}
+
+.pendingTitle {
+  @apply text-lg font-semibold text-innovation-purple mb-2;
+}
+
+.pendingDescription {
+  @apply text-gray-600 dark:text-gray-400;
+}
+
+.verificationForm {
+  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 space-y-4;
+}
+
+.formGroup {
+  @apply space-y-2;
+}
+
+.formLabel {
+  @apply block text-sm font-medium text-gray-700 dark:text-gray-300;
+}
+
+.formInput {
+  @apply w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent;
+}
+
+.formSelect {
+  @apply w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent;
+}
+
+.formTextarea {
+  @apply w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent resize-vertical;
+}
+
+.submitButton {
+  @apply w-full px-6 py-3 bg-deep-ocean-blue text-white font-semibold rounded-lg hover:bg-deep-ocean-blue/90 transition-all duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed;
+}
+
+.verifiedSection {
+  @apply bg-gradient-to-r from-deep-ocean-blue/10 to-growth-green/10 p-6 rounded-xl border border-deep-ocean-blue/20;
+}
+
+.verifiedHeader {
+  @apply text-center mb-6;
+}
+
+.verifiedTitle {
+  @apply text-lg font-semibold text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.verificationResults {
+  @apply space-y-4;
+}
+
+.integrityBadge {
+  @apply text-center;
+}
+
+.integrityStatus {
+  @apply inline-block px-4 py-2 rounded-lg font-medium text-sm;
+}
+
+.proctorFeedback {
+  @apply bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700;
+}
+
+.candidateSection {
+  @apply space-y-4;
+}
+
+.candidateCard {
+  @apply bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 space-y-2;
+}
