@@ -11,6 +11,12 @@
   
   body {
     @apply font-sans antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Ensure proper dark mode transitions */
+  * {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   }
 }
 
@@ -26,6 +32,11 @@
   .hover-lift {
     @apply transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl;
   }
+  
+  /* Dark mode specific utilities */
+  .dark-gradient-text {
+    @apply bg-gradient-to-r from-hopeful-turquoise via-optimistic-yellow to-growth-green bg-clip-text text-transparent;
+  }
 }
 
 @layer utilities {
@@ -36,4 +47,31 @@
   .backdrop-blur-strong {
     backdrop-filter: blur(20px);
   }
+  
+  /* Ensure smooth theme transitions */
+  .theme-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+/* Global dark mode styles */
+.dark {
+  color-scheme: dark;
+}
+
+.light {
+  color-scheme: light;
+}
+
+/* Ensure form elements work properly in dark mode */
+.dark input,
+.dark textarea,
+.dark select {
+  color-scheme: dark;
+}
+
+.light input,
+.light textarea,
+.light select {
+  color-scheme: light;
 }

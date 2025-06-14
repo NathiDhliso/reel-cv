@@ -6,7 +6,7 @@ export const useTheme = () => useContext(ThemeContext);
 export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState(() => {
         // Check localStorage first, then system preference, default to light
-        const savedTheme = localStorage.getItem('theme');
+        const savedTheme = localStorage.getItem('reelcv-theme');
         if (savedTheme) {
             return savedTheme;
         }
@@ -28,11 +28,14 @@ export const ThemeProvider = ({ children }) => {
         // Add the current theme class
         root.classList.add(theme);
         
-        // Save to localStorage
-        localStorage.setItem('theme', theme);
+        // Save to localStorage with a unique key
+        localStorage.setItem('reelcv-theme', theme);
         
         // Update the data-theme attribute for additional styling if needed
         root.setAttribute('data-theme', theme);
+        
+        // Also update the body class for immediate effect
+        document.body.className = theme;
     }, [theme]);
 
     const toggleTheme = () => {

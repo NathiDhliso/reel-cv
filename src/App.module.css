@@ -25,6 +25,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .headerContent {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
 }
 
 .brandSection {
@@ -66,6 +76,13 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .userSection {
+    justify-content: center;
+  }
 }
 
 .welcomeText {
@@ -128,11 +145,17 @@
   border: none;
   outline: none;
   box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.1);
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .themeToggleButton:hover {
   background: rgba(255, 215, 0, 0.2);
   box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
 }
 
 .themeToggleButton:focus {
@@ -191,50 +214,60 @@
   transform: scale(1.05);
 }
 
-/* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-  .appContainer {
-    background: linear-gradient(135deg, 
-      rgba(17, 24, 39, 1) 0%, 
-      rgba(31, 41, 55, 1) 30%, 
-      rgba(0, 71, 171, 0.1) 100%);
-  }
-  
-  .header {
-    background: rgba(31, 41, 55, 0.95);
-    border-bottom: 1px solid rgba(75, 85, 99, 0.5);
-  }
-  
-  .brandName {
-    background: linear-gradient(135deg, #40E0D0 0%, #FFD700 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .tagline {
-    color: #9CA3AF;
-  }
-  
-  .welcomeText {
-    color: #E5E7EB;
-  }
-  
-  .navLink {
-    color: #40E0D0;
-  }
-  
-  .navLink:hover {
-    color: #FFD700;
-    background: rgba(64, 224, 208, 0.1);
-  }
-  
-  .themeToggleButton {
-    background: #374151;
-    color: #E5E7EB;
-  }
-  
-  .themeToggleButton:hover {
-    background: rgba(64, 224, 208, 0.2);
-  }
+/* Dark mode styles using :global() for CSS modules */
+:global(.dark) .appContainer {
+  background: linear-gradient(135deg, 
+    rgba(17, 24, 39, 1) 0%, 
+    rgba(31, 41, 55, 1) 30%, 
+    rgba(0, 71, 171, 0.1) 100%);
+}
+
+:global(.dark) .header {
+  background: rgba(31, 41, 55, 0.95);
+  border-bottom: 1px solid rgba(75, 85, 99, 0.5);
+}
+
+:global(.dark) .brandName {
+  background: linear-gradient(135deg, #40E0D0 0%, #FFD700 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global(.dark) .tagline {
+  color: #9CA3AF;
+}
+
+:global(.dark) .welcomeText {
+  color: #E5E7EB;
+}
+
+:global(.dark) .navLink {
+  color: #40E0D0;
+}
+
+:global(.dark) .navLink:hover {
+  color: #FFD700;
+  background: rgba(64, 224, 208, 0.1);
+}
+
+:global(.dark) .themeToggleButton {
+  background: #374151;
+  color: #E5E7EB;
+}
+
+:global(.dark) .themeToggleButton:hover {
+  background: rgba(64, 224, 208, 0.2);
+  color: #40E0D0;
+}
+
+:global(.dark) .welcomeTitle {
+  background: linear-gradient(135deg, #40E0D0 0%, #FFD700 50%, #2E8B57 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global(.dark) .welcomeSubtitle {
+  color: #9CA3AF;
 }

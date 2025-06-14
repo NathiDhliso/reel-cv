@@ -7,14 +7,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem 1rem;
+  padding: 2rem 1rem;
 }
 
 .authContainer {
   width: 100%;
   max-width: 28rem;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2.5rem;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -47,7 +47,7 @@
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: #0047AB;
@@ -57,6 +57,8 @@
   color: #6B7280;
   font-size: 0.875rem;
   line-height: 1.5;
+  max-width: 24rem;
+  margin: 0 auto;
 }
 
 .form {
@@ -72,8 +74,16 @@
   gap: 1rem;
 }
 
+@media (max-width: 640px) {
+  .nameGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
 .inputGroup {
   position: relative;
+  width: 100%;
 }
 
 .inputIcon {
@@ -85,18 +95,20 @@
   height: 1.25rem;
   color: #9CA3AF;
   z-index: 10;
+  pointer-events: none;
 }
 
 .input {
   width: 100%;
   padding: 1rem 1rem 1rem 3rem;
-  border: 1px solid #D1D5DB;
+  border: 2px solid #E5E7EB;
   border-radius: 0.75rem;
-  background: rgba(249, 250, 251, 0.5);
+  background: rgba(249, 250, 251, 0.8);
   color: #1F2937;
   font-size: 0.875rem;
   transition: all 0.3s ease;
   backdrop-filter: blur(4px);
+  box-sizing: border-box;
 }
 
 .input::placeholder {
@@ -106,10 +118,9 @@
 .input:focus {
   outline: none;
   background: #FFFFFF;
-  box-shadow: 0 10px 25px -5px rgba(0, 71, 171, 0.1);
-  transform: scale(1.02);
+  box-shadow: 0 10px 25px -5px rgba(0, 71, 171, 0.15);
+  transform: scale(1.01);
   border-color: #0047AB;
-  ring: 2px solid rgba(0, 71, 171, 0.5);
 }
 
 .submitButton {
@@ -127,20 +138,21 @@
   justify-content: center;
   gap: 0.5rem;
   font-size: 0.875rem;
+  min-height: 3rem;
 }
 
-.submitButton:hover {
+.submitButton:hover:not(:disabled) {
   background: linear-gradient(135deg, #2E8B57 0%, #40E0D0 50%, #0047AB 100%);
   transform: scale(1.02);
   box-shadow: 0 20px 40px -10px rgba(0, 71, 171, 0.3);
 }
 
-.submitButton:active {
+.submitButton:active:not(:disabled) {
   transform: scale(0.98);
 }
 
 .submitButton:disabled {
-  opacity: 0.5;
+  opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
@@ -179,6 +191,7 @@
 
 .link:hover {
   color: #8A2BE2;
+  text-decoration: underline;
 }
 
 .successMessage {
@@ -192,13 +205,14 @@
   align-items: center;
   gap: 0.5rem;
   backdrop-filter: blur(4px);
+  font-size: 0.875rem;
 }
 
 .error {
   margin-bottom: 1rem;
   text-align: center;
   color: #DC2626;
-  background: rgba(254, 226, 226, 0.8);
+  background: rgba(254, 226, 226, 0.9);
   padding: 1rem;
   border-radius: 0.75rem;
   font-size: 0.875rem;
@@ -278,53 +292,83 @@
 }
 
 /* Dark mode styles */
-@media (prefers-color-scheme: dark) {
-  .pageContainer {
-    background: linear-gradient(135deg, 
-      rgba(17, 24, 39, 1) 0%, 
-      rgba(31, 41, 55, 1) 30%, 
-      rgba(0, 71, 171, 0.2) 100%);
-  }
-  
-  .authContainer {
-    background: rgba(31, 41, 55, 0.95);
-    border: 1px solid rgba(75, 85, 99, 0.3);
-  }
-  
-  .title {
-    color: #40E0D0;
-  }
-  
-  .subtitle {
-    color: #9CA3AF;
-  }
-  
-  .input {
-    background: rgba(55, 65, 81, 0.5);
-    border-color: #4B5563;
-    color: #E5E7EB;
-  }
-  
-  .input:focus {
-    background: #374151;
-    border-color: #40E0D0;
-    ring: 2px solid rgba(64, 224, 208, 0.5);
-  }
-  
-  .link {
-    color: #40E0D0;
-  }
-  
-  .link:hover {
-    color: #FFD700;
-  }
-  
-  .demoTitle,
-  .featuresTitle {
-    color: #D1D5DB;
-  }
-  
-  .demoRole {
-    color: #40E0D0;
-  }
+:global(.dark) .pageContainer {
+  background: linear-gradient(135deg, 
+    rgba(17, 24, 39, 1) 0%, 
+    rgba(31, 41, 55, 1) 30%, 
+    rgba(0, 71, 171, 0.2) 100%);
+}
+
+:global(.dark) .authContainer {
+  background: rgba(31, 41, 55, 0.95);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+}
+
+:global(.dark) .brandTitle {
+  background: linear-gradient(135deg, #40E0D0 0%, #FFD700 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+:global(.dark) .title {
+  color: #40E0D0;
+}
+
+:global(.dark) .subtitle {
+  color: #9CA3AF;
+}
+
+:global(.dark) .inputIcon {
+  color: #6B7280;
+}
+
+:global(.dark) .input {
+  background: rgba(55, 65, 81, 0.8);
+  border-color: #4B5563;
+  color: #E5E7EB;
+}
+
+:global(.dark) .input::placeholder {
+  color: #6B7280;
+}
+
+:global(.dark) .input:focus {
+  background: #374151;
+  border-color: #40E0D0;
+  box-shadow: 0 10px 25px -5px rgba(64, 224, 208, 0.15);
+}
+
+:global(.dark) .link {
+  color: #40E0D0;
+}
+
+:global(.dark) .link:hover {
+  color: #FFD700;
+}
+
+:global(.dark) .demoTitle,
+:global(.dark) .featuresTitle {
+  color: #D1D5DB;
+}
+
+:global(.dark) .demoRole {
+  color: #40E0D0;
+}
+
+:global(.dark) .demoEmail,
+:global(.dark) .demoPassword {
+  color: #9CA3AF;
+}
+
+:global(.dark) .error {
+  background: rgba(127, 29, 29, 0.3);
+  border-color: #991B1B;
+  color: #FCA5A5;
+}
+
+:global(.dark) .successMessage {
+  background: linear-gradient(135deg, rgba(64, 224, 208, 0.1) 0%, rgba(46, 139, 87, 0.1) 100%);
+  border-color: rgba(64, 224, 208, 0.2);
+  color: #40E0D0;
 }
