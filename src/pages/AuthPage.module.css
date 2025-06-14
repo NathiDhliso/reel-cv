@@ -1,4 +1,5 @@
 .pageContainer {
+  height: 100vh;
   background: linear-gradient(135deg, 
     rgba(0, 71, 171, 0.05) 0%, 
     rgba(255, 255, 255, 1) 30%, 
@@ -6,25 +7,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1rem;
+  padding: 1rem;
+  overflow: hidden;
 }
 
 .authContainer {
   width: 100%;
-  max-width: 28rem;
+  max-width: 26rem;
   margin: 0 auto;
-  padding: 2.5rem;
+  padding: 1.5rem;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   border-radius: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
   transition: all 0.5s ease;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
 }
 
 .brandHeader {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .logoContainer {
@@ -32,11 +36,11 @@
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .brandTitle {
-  font-size: 1.875rem;
+  font-size: 1.75rem;
   font-weight: 700;
   background: linear-gradient(135deg, #0047AB 0%, #8A2BE2 100%);
   -webkit-background-clip: text;
@@ -46,7 +50,7 @@
 }
 
 .title {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: #0047AB;
@@ -55,7 +59,7 @@
 .subtitle {
   color: #6B7280;
   font-size: 0.875rem;
-  line-height: 1.5;
+  line-height: 1.4;
   max-width: 24rem;
   margin: 0 auto;
 }
@@ -63,8 +67,8 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .nameGrid {
@@ -76,7 +80,71 @@
 @media (max-width: 640px) {
   .nameGrid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 1rem;
+  }
+  
+  .pageContainer {
+    padding: 0.5rem;
+  }
+  
+  .authContainer {
+    padding: 1.25rem;
+    max-height: calc(100vh - 1rem);
+  }
+  
+  .brandTitle {
+    font-size: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-height: 700px) {
+  .authContainer {
+    padding: 1rem;
+  }
+  
+  .brandHeader {
+    margin-bottom: 1rem;
+  }
+  
+  .form {
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .brandTitle {
+    font-size: 1.5rem;
+  }
+  
+  .title {
+    font-size: 1.25rem;
+  }
+  
+  .subtitle {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .logoContainer {
+    margin-bottom: 0.5rem;
+  }
+  
+  .brandHeader {
+    margin-bottom: 0.75rem;
+  }
+  
+  .form {
+    gap: 0.75rem;
+  }
+  
+  .demoSection,
+  .featuresSection {
+    margin-top: 1rem;
+    padding-top: 1rem;
   }
 }
 
@@ -99,7 +167,7 @@
 
 .input {
   width: 100%;
-  padding: 1rem 1rem 1rem 3rem;
+  padding: 0.875rem 0.875rem 0.875rem 2.75rem;
   border: 2px solid #E5E7EB;
   border-radius: 0.75rem;
   background: rgba(249, 250, 251, 0.8);
@@ -127,7 +195,7 @@
   background: linear-gradient(135deg, #0047AB 0%, #8A2BE2 50%, #2E8B57 100%);
   color: #FFFFFF;
   font-weight: 700;
-  padding: 1rem 1.5rem;
+  padding: 0.875rem 1.5rem;
   border-radius: 0.75rem;
   border: none;
   cursor: pointer;
@@ -137,7 +205,7 @@
   justify-content: center;
   gap: 0.5rem;
   font-size: 0.875rem;
-  min-height: 3rem;
+  min-height: 2.75rem;
 }
 
 .submitButton:hover:not(:disabled) {
@@ -173,7 +241,7 @@
 
 .linkSection {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .linkText {
@@ -195,7 +263,7 @@
 
 .successMessage {
   margin-bottom: 1rem;
-  padding: 1rem;
+  padding: 0.875rem;
   background: linear-gradient(135deg, rgba(46, 139, 87, 0.1) 0%, rgba(64, 224, 208, 0.1) 100%);
   color: #2E8B57;
   border-radius: 0.75rem;
@@ -212,7 +280,7 @@
   text-align: center;
   color: #DC2626;
   background: rgba(254, 226, 226, 0.9);
-  padding: 1rem;
+  padding: 0.875rem;
   border-radius: 0.75rem;
   font-size: 0.875rem;
   border: 1px solid #FCA5A5;
@@ -220,8 +288,8 @@
 }
 
 .demoSection {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
   border-top: 1px solid rgba(229, 231, 235, 0.5);
 }
 
@@ -265,8 +333,8 @@
 }
 
 .featuresSection {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
   border-top: 1px solid rgba(229, 231, 235, 0.5);
 }
 
