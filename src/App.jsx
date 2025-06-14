@@ -79,20 +79,8 @@ function App() {
       
       <main className={styles.mainContent}>
         <Routes>
-          <Route path="/login" element={
-            user ? (
-              <Navigate to={user.role === 'proctor' ? "/proctor-dashboard" : "/dashboard"} replace />
-            ) : (
-              <LoginPage />
-            )
-          } />
-          <Route path="/register" element={
-            user ? (
-              <Navigate to={user.role === 'proctor' ? "/proctor-dashboard" : "/dashboard"} replace />
-            ) : (
-              <RegisterPage />
-            )
-          } />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           
           <Route path="/dashboard" element={
             <PrivateRoute>
@@ -118,23 +106,11 @@ function App() {
             </PrivateRoute>
           } />
           
-          {/* Root route */}
-          <Route path="/" element={
-            user ? (
-              <Navigate to={user.role === 'proctor' ? "/proctor-dashboard" : "/dashboard"} replace />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          } />
+          {/* Root route - now goes directly to dashboard */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
           
-          {/* Catch-all route */}
-          <Route path="*" element={
-            user ? (
-              <Navigate to={user.role === 'proctor' ? "/proctor-dashboard" : "/dashboard"} replace />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          } />
+          {/* Catch-all route - now goes directly to dashboard */}
+          <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>
       </main>
     </div>
