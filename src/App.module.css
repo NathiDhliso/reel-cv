@@ -21,20 +21,29 @@
 .headerContent {
   max-width: 80rem;
   margin: 0 auto;
-  padding: 1rem 1.5rem;
+  padding: 1.5rem 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 2rem;
+  min-height: 80px;
+}
+
+@media (max-width: 1024px) {
+  .headerContent {
+    gap: 1.5rem;
+    padding: 1.25rem 1.5rem;
+  }
 }
 
 @media (max-width: 768px) {
   .headerContent {
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem;
+    gap: 1.5rem;
+    padding: 1.5rem 1rem;
+    min-height: auto;
   }
   
   .userSection {
@@ -50,31 +59,34 @@
 
 @media (max-width: 640px) {
   .headerContent {
-    padding: 0.75rem;
+    padding: 1rem;
+    gap: 1rem;
   }
   
   .userSection {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
   }
   
   .buttonGroup {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 1rem;
   }
 }
 
 .brandSection {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 @media (max-width: 480px) {
   .brandSection {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
     text-align: center;
   }
 }
@@ -83,6 +95,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .brandName {
@@ -93,6 +106,7 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+  white-space: nowrap;
 }
 
 @media (max-width: 480px) {
@@ -106,6 +120,7 @@
   color: #6B7280;
   font-weight: 500;
   display: none;
+  white-space: nowrap;
 }
 
 @media (min-width: 768px) {
@@ -117,13 +132,22 @@
 .userSection {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2rem;
   flex-wrap: wrap;
+  flex-grow: 1;
+  justify-content: center;
 }
 
 @media (max-width: 768px) {
   .userSection {
     justify-content: center;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .userSection {
+    gap: 1rem;
   }
 }
 
@@ -131,13 +155,16 @@
   color: #1F2937;
   font-weight: 500;
   white-space: nowrap;
+  margin-right: 1rem;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .welcomeText {
     font-size: 0.875rem;
     white-space: normal;
     text-align: center;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -148,27 +175,38 @@
   color: #0047AB;
   text-decoration: none;
   transition: all 0.3s ease;
-  padding: 0.5rem 0.75rem;
+  padding: 0.75rem 1rem;
   border-radius: 0.5rem;
   white-space: nowrap;
+  background: rgba(0, 71, 171, 0.05);
+  border: 1px solid rgba(0, 71, 171, 0.1);
 }
 
 .navLink:hover {
   color: #8A2BE2;
   background: rgba(0, 71, 171, 0.1);
+  border-color: rgba(138, 43, 226, 0.2);
+  transform: translateY(-1px);
 }
 
 .buttonGroup {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .buttonGroup {
+    gap: 0.75rem;
+  }
 }
 
 .authButton {
   display: inline-flex;
   align-items: center;
-  padding: 0.5rem 1.5rem;
+  padding: 0.75rem 1.5rem;
   background: linear-gradient(135deg, #0047AB 0%, #2E8B57 100%);
   color: #FFFFFF;
   border-radius: 0.5rem;
@@ -180,23 +218,26 @@
   border: none;
   cursor: pointer;
   white-space: nowrap;
+  min-width: 120px;
+  justify-content: center;
 }
 
 .authButton:hover {
   background: linear-gradient(135deg, #8A2BE2 0%, #0047AB 100%);
   box-shadow: 0 10px 25px -5px rgba(0, 71, 171, 0.4);
-  transform: scale(1.05);
+  transform: translateY(-2px);
 }
 
 @media (max-width: 480px) {
   .authButton {
-    padding: 0.5rem 1rem;
+    padding: 0.625rem 1.25rem;
     font-size: 0.8rem;
+    min-width: 100px;
   }
 }
 
 .themeToggleButton {
-  padding: 0.5rem 0.75rem;
+  padding: 0.75rem;
   background: #F3F4F6;
   border-radius: 0.5rem;
   color: #1F2937;
@@ -206,8 +247,8 @@
   border: none;
   outline: none;
   box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.1);
-  min-width: 2.5rem;
-  min-height: 2.5rem;
+  min-width: 3rem;
+  min-height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -217,7 +258,7 @@
 .themeToggleButton:hover {
   background: rgba(255, 215, 0, 0.2);
   box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.2);
-  transform: scale(1.05);
+  transform: translateY(-1px);
 }
 
 .themeToggleButton:focus {
@@ -229,12 +270,13 @@
   max-width: 80rem;
   margin: 0 auto;
   padding: 2rem 1.5rem;
-  min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 120px);
 }
 
 @media (max-width: 768px) {
   .mainContent {
     padding: 1.5rem 1rem;
+    min-height: calc(100vh - 140px);
   }
 }
 
@@ -312,11 +354,14 @@
 
 :global(.dark) .navLink {
   color: #40E0D0;
+  background: rgba(64, 224, 208, 0.05);
+  border-color: rgba(64, 224, 208, 0.1);
 }
 
 :global(.dark) .navLink:hover {
   color: #FFD700;
   background: rgba(64, 224, 208, 0.1);
+  border-color: rgba(255, 215, 0, 0.2);
 }
 
 :global(.dark) .themeToggleButton {
