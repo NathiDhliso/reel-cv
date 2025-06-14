@@ -1,0 +1,160 @@
+.dashboardContainer {
+  @apply w-full max-w-7xl mx-auto;
+}
+
+.dashboardHeader {
+  @apply mb-8 pb-6 border-b border-gray-200 dark:border-gray-700;
+}
+
+.headerContent {
+  @apply flex items-center justify-between mb-4;
+}
+
+.dashboardTitle {
+  @apply text-4xl font-bold text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.dashboardSubtitle {
+  @apply text-lg text-gray-600 dark:text-gray-400;
+}
+
+.recruiterBadge {
+  @apply inline-flex items-center px-4 py-2 bg-innovation-purple/10 text-innovation-purple font-semibold rounded-lg border border-innovation-purple/20;
+}
+
+.loadingContainer {
+  @apply flex flex-col items-center justify-center py-16;
+}
+
+.loadingSpinner {
+  @apply w-12 h-12 border-4 border-deep-ocean-blue border-t-transparent rounded-full animate-spin mb-4;
+}
+
+.loadingText {
+  @apply text-gray-600 dark:text-gray-400 text-lg;
+}
+
+.errorMessage {
+  @apply mb-6 p-4 bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-lg border border-red-200 dark:border-red-800;
+}
+
+.statsGrid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8;
+}
+
+.statCard {
+  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 flex items-center space-x-4;
+}
+
+.statIcon {
+  @apply flex-shrink-0;
+}
+
+.statContent {
+  @apply flex-1;
+}
+
+.statTitle {
+  @apply text-sm font-medium text-gray-600 dark:text-gray-400 mb-1;
+}
+
+.statValue {
+  @apply text-2xl font-bold text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.controlsSection {
+  @apply flex flex-col md:flex-row gap-4 mb-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700;
+}
+
+.searchContainer {
+  @apply relative flex-1;
+}
+
+.searchContainer svg {
+  @apply absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none;
+}
+
+.searchInput {
+  @apply w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300;
+}
+
+.filterContainer {
+  @apply relative flex-1;
+}
+
+.filterContainer svg {
+  @apply absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none;
+}
+
+.filterInput {
+  @apply w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300;
+}
+
+.resultsSection {
+  @apply mb-8;
+}
+
+.resultsHeader {
+  @apply flex items-center justify-between mb-6;
+}
+
+.sectionTitle {
+  @apply text-2xl font-bold text-gray-800 dark:text-gray-200;
+}
+
+.clearFiltersButton {
+  @apply px-4 py-2 text-sm font-medium text-deep-ocean-blue dark:text-hopeful-turquoise hover:bg-deep-ocean-blue/10 dark:hover:bg-hopeful-turquoise/10 rounded-lg transition-all duration-300;
+}
+
+.emptyState {
+  @apply text-center py-16 bg-white dark:bg-gray-800 rounded-xl shadow-lg;
+}
+
+.emptyTitle {
+  @apply text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2;
+}
+
+.emptyDescription {
+  @apply text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto;
+}
+
+.candidatesGrid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboardTitle {
+    @apply text-3xl;
+  }
+  
+  .headerContent {
+    @apply flex-col items-start gap-4;
+  }
+  
+  .statsGrid {
+    @apply grid-cols-1 md:grid-cols-2;
+  }
+  
+  .controlsSection {
+    @apply flex-col gap-4;
+  }
+  
+  .candidatesGrid {
+    @apply grid-cols-1;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboardTitle {
+    @apply text-2xl;
+  }
+  
+  .statCard {
+    @apply flex-col text-center space-x-0 space-y-3;
+  }
+  
+  .resultsHeader {
+    @apply flex-col items-start gap-3;
+  }
+}

@@ -8,8 +8,9 @@ import { LoginPage } from './pages/LoginPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { CandidateDashboard } from './pages/CandidateDashboard';
 import { ProctorDashboard } from './pages/ProctorDashboard';
+import { RecruiterDashboard } from './pages/RecruiterDashboard';
 import { AssessmentDetail } from './pages/AssessmentDetail';
-import { Video, Zap, Shield } from 'lucide-react';
+import { Video, Zap, Shield, Users } from 'lucide-react';
 import styles from './App.module.css';
 
 function App() {
@@ -29,6 +30,19 @@ function App() {
       </div>
     );
   }
+
+  // Determine dashboard route based on user role
+  const getDashboardRoute = () => {
+    if (!user) return '/dashboard';
+    switch (user.role) {
+      case 'proctor':
+        return '/proctor-dashboard';
+      case 'recruiter':
+        return '/recruiter-dashboard';
+      default:
+        return '/dashboard';
+    }
+  };
 
   return (
     <div className={styles.appContainer}>
@@ -50,10 +64,16 @@ function App() {
                 Welcome, {user.firstName || user.email}!
               </span>
               <Link 
-                to={user.role === 'proctor' ? "/proctor-dashboard" : "/dashboard"} 
+                to={getDashboardRoute()} 
                 className={styles.navLink}
               >
-                <Shield className="w-4 h-4 mr-1" />
+                {user.role === 'proctor' ? (
+                  <Shield className="w-4 h-4 mr-1" />
+                ) : user.role === 'recruiter' ? (
+                  <Users className="w-4 h-4 mr-1" />
+                ) : (
+                  <Shield className="w-4 h-4 mr-1" />
+                )}
                 Dashboard
               </Link>
             </div>
@@ -94,6 +114,12 @@ function App() {
             </PrivateRoute>
           } />
           
+          <Route path="/recruiter-dashboard" element={
+            <PrivateRoute requiredRole="recruiter">
+              <RecruiterDashboard />
+            </PrivateRoute>
+          } />
+          
           <Route path="/assessment/:id" element={
             <PrivateRoute>
               <AssessmentDetail />
@@ -106,11 +132,11 @@ function App() {
             </PrivateRoute>
           } />
           
-          {/* Root route - now goes directly to dashboard */}
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          {/* Root route - now goes to appropriate dashboard based on role */}
+          <Route path="/" element={<Navigate to={getDashboardRoute()} replace />} />
           
-          {/* Catch-all route - now goes directly to dashboard */}
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          {/* Catch-all route - now goes to appropriate dashboard based on role */}
+          <Route path="*" element={<Navigate to={getDashboardRoute()} replace />} />
         </Routes>
       </main>
     </div>

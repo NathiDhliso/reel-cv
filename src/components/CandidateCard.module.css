@@ -1,0 +1,118 @@
+.candidateCard {
+  @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:border-deep-ocean-blue/30 dark:hover:border-hopeful-turquoise/30 transition-all duration-300 transform hover:-translate-y-1;
+}
+
+.candidateHeader {
+  @apply flex items-start justify-between mb-4;
+}
+
+.candidateAvatar {
+  @apply w-12 h-12 bg-deep-ocean-blue/10 dark:bg-hopeful-turquoise/10 rounded-full flex items-center justify-center flex-shrink-0;
+}
+
+.candidateInfo {
+  @apply flex-1 ml-3;
+}
+
+.candidateName {
+  @apply text-lg font-bold text-gray-800 dark:text-gray-200 mb-1;
+}
+
+.candidateEmail {
+  @apply text-sm text-gray-600 dark:text-gray-400;
+}
+
+.verifiedBadge {
+  @apply flex-shrink-0;
+}
+
+.candidateStats {
+  @apply space-y-2 mb-4 pb-4 border-b border-gray-200 dark:border-gray-700;
+}
+
+.statItem {
+  @apply flex items-center space-x-2 text-sm;
+}
+
+.statLabel {
+  @apply text-gray-600 dark:text-gray-400;
+}
+
+.statValue {
+  @apply font-semibold text-deep-ocean-blue dark:text-hopeful-turquoise;
+}
+
+.skillsSection {
+  @apply mb-4;
+}
+
+.skillsTitle {
+  @apply text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2;
+}
+
+.skillsList {
+  @apply flex flex-wrap gap-2;
+}
+
+.skillTag {
+  @apply px-2 py-1 bg-innovation-purple/10 text-innovation-purple text-xs font-medium rounded-full border border-innovation-purple/20;
+}
+
+.moreSkills {
+  @apply px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs font-medium rounded-full;
+}
+
+.highlightSection {
+  @apply mb-4 p-3 bg-gradient-to-r from-growth-green/10 to-deep-ocean-blue/10 rounded-lg border border-growth-green/20;
+}
+
+.highlightTitle {
+  @apply text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2;
+}
+
+.highlightContent {
+  @apply flex items-center justify-between;
+}
+
+.highlightSkill {
+  @apply text-sm font-medium text-gray-800 dark:text-gray-200;
+}
+
+.highlightRating {
+  @apply text-sm font-bold text-growth-green;
+}
+
+.candidateActions {
+  @apply pt-4 border-t border-gray-200 dark:border-gray-700;
+}
+
+.viewProfileButton {
+  @apply w-full inline-flex items-center justify-center px-4 py-2 bg-deep-ocean-blue text-white font-semibold rounded-lg hover:bg-deep-ocean-blue/90 transition-all duration-300 text-sm;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .candidateCard {
+    @apply p-4;
+  }
+  
+  .candidateHeader {
+    @apply flex-col space-y-3;
+  }
+  
+  .candidateInfo {
+    @apply ml-0;
+  }
+  
+  .verifiedBadge {
+    @apply self-start;
+  }
+  
+  .skillsList {
+    @apply gap-1;
+  }
+  
+  .skillTag {
+    @apply text-xs px-2 py-1;
+  }
+}
