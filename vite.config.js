@@ -8,16 +8,15 @@ export default defineConfig({
     exclude: ['lucide-react'],
   },
   server: {
-    // Keep the port you configured previously
-    port: 5173,
-
-    // This is important for single-page applications
+    // This MUST match targetPort in netlify.toml
+    port: 5173, 
+    
     historyApiFallback: true,
-
-    // This proxy is CRITICAL for your API calls to work in development
+    
+    // This proxy target MUST match port in netlify.toml
     proxy: {
       '/api': {
-        target: 'http://localhost:8888', // Or whatever port Netlify says it's running on
+        target: 'http://localhost:8888', 
         changeOrigin: true,
       },
     },

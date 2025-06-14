@@ -3,6 +3,11 @@
   publish = "dist"
   functions = "netlify/functions"
 
+# Add this entire block
+[dev]
+  port = 8888 # Sets the port for the Netlify proxy server
+  targetPort = 5173 # The port your Vite app is running on
+
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/api/:splat"
