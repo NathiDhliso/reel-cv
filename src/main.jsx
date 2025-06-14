@@ -7,7 +7,7 @@ import { AuthProvider } from './contexts/AuthContext.jsx';
 import { ThemeProvider } from './contexts/ThemeContext.jsx';
 import * as Sentry from "@sentry/react";
 
-// UPDATED to use "VITE_REELCV_" prefixed variable
+// Initialize Sentry
 Sentry.init({
   dsn: import.meta.env.VITE_REELCV_SENTRY_DSN_KEY,
   integrations: [
@@ -21,12 +21,12 @@ Sentry.init({
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <ThemeProvider>
+    <ThemeProvider>
+      <BrowserRouter>
+        <AuthProvider>
           <App />
-        </ThemeProvider>
-      </AuthProvider>
-    </BrowserRouter>
+        </AuthProvider>
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>,
 );
