@@ -85,19 +85,32 @@ export const RecruiterDashboard = () => {
         // Convert to array and apply filters
         let candidates = Array.from(candidateMap.values());
 
-        // Apply search filter
-        if (searchTerm) {
-            candidates = candidates.filter(({ candidate }) => {
-                const fullName = `${candidate.firstName} ${candidate.lastName}`.toLowerCase();
-                return fullName.includes(searchTerm.toLowerCase());
+        // Apply search filter - search in name, email, and skills
+        if (searchTerm.trim()) {
+            const searchLower = searchTerm.toLowerCase().trim();
+            candidates = candidates.filter(({ candidate, assessments }) => {
+                // Search in candidate name
+                const fullName = `${candidate.firstName || ''} ${candidate.lastName || ''}`.toLowerCase();
+                const nameMatch = fullName.includes(searchLower);
+                
+                // Search in candidate email
+                const emailMatch = (candidate.email || '').toLowerCase().includes(searchLower);
+                
+                // Search in skills
+                const skillsMatch = assessments.some(assessment => 
+                    (assessment.Skill?.name || '').toLowerCase().includes(searchLower)
+                );
+                
+                return nameMatch || emailMatch || skillsMatch;
             });
         }
 
         // Apply skill filter
-        if (skillFilter) {
+        if (skillFilter.trim()) {
+            const skillLower = skillFilter.toLowerCase().trim();
             candidates = candidates.filter(({ assessments }) => {
                 return assessments.some(assessment => 
-                    assessment.Skill.name.toLowerCase().includes(skillFilter.toLowerCase())
+                    (assessment.Skill?.name || '').toLowerCase().includes(skillLower)
                 );
             });
         }
@@ -114,6 +127,15 @@ export const RecruiterDashboard = () => {
         ? (assessments.reduce((sum, a) => sum + (a.proctorRating || 0), 0) / assessments.length).toFixed(1)
         : 'N/A';
     const topSkills = [...new Set(assessments.map(a => a.Skill.name))].slice(0, 5);
+
+    // Clear all filters
+    const clearAllFilters = () => {
+        setSearchTerm('');
+        setSkillFilter('');
+    };
+
+    // Check if any filters are active
+    const hasActiveFilters = searchTerm.trim() || skillFilter.trim();
 
     if (loading) {
         return (
@@ -188,24 +210,26 @@ export const RecruiterDashboard = () => {
             {/* Search and Filter Controls */}
             <div className={styles.controlsSection}>
                 <div className={styles.searchContainer}>
-                    <Search className="w-5 h-5 text-gray-400" />
+                    <Search className="w-6 h-6 text-gray-400" />
                     <input
                         type="text"
-                        placeholder="Search candidates by name..."
+                        placeholder="Search candidates by name, email, or skills..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className={styles.searchInput}
                     />
                 </div>
-                <div className={styles.filterContainer}>
-                    <Filter className="w-5 h-5 text-gray-400" />
-                    <input
-                        type="text"
-                        placeholder="Filter by skill..."
-                        value={skillFilter}
-                        onChange={(e) => setSkillFilter(e.target.value)}
-                        className={styles.filterInput}
-                    />
+                <div className={styles.filtersRow}>
+                    <div className={styles.filterContainer}>
+                        <Filter className="w-5 h-5 text-gray-400" />
+                        <input
+                            type="text"
+                            placeholder="Filter by specific skill..."
+                            value={skillFilter}
+                            onChange={(e) => setSkillFilter(e.target.value)}
+                            className={styles.filterInput}
+                        />
+                    </div>
                 </div>
             </div>
 
@@ -215,28 +239,44 @@ export const RecruiterDashboard = () => {
                     <h2 className={styles.sectionTitle}>
                         Candidates ({filteredCandidates.length})
                     </h2>
-                    {(searchTerm || skillFilter) && (
+                    {hasActiveFilters && (
                         <button 
-                            onClick={() => {
-                                setSearchTerm('');
-                                setSkillFilter('');
-                            }}
+                            onClick={clearAllFilters}
                             className={styles.clearFiltersButton}
                         >
-                            Clear Filters
+                            Clear All Filters
                         </button>
                     )}
                 </div>
 
+                {/* Search Results Info */}
+                {hasActiveFilters && (
+                    <div className={styles.searchResultsInfo}>
+                        {searchTerm && (
+                            <span>Searching for: "{searchTerm}" </span>
+                        )}
+                        {skillFilter && (
+                            <span>• Skill filter: "{skillFilter}" </span>
+                        )}
+                        • Found {filteredCandidates.length} of {totalCandidates} candidates
+                    </div>
+                )}
+
                 {filteredCandidates.length === 0 ? (
                     <div className={styles.emptyState}>
-                        {searchTerm || skillFilter ? (
+                        {hasActiveFilters ? (
                             <>
                                 <Search className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                                <h3 className={styles.emptyTitle}>No candidates match your criteria</h3>
+                                <h3 className={styles.emptyTitle}>No candidates match your search</h3>
                                 <p className={styles.emptyDescription}>
-                                    Try adjusting your search terms or filters to find more candidates.
+                                    Try different search terms or clear your filters to see more candidates.
                                 </p>
+                                <button 
+                                    onClick={clearAllFilters}
+                                    className={styles.clearFiltersButton}
+                                >
+                                    Clear All Filters
+                                </button>
                             </>
                         ) : (
                             <>

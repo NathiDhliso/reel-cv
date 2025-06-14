@@ -79,24 +79,37 @@
 }
 
 .controlsSection {
-  @apply flex flex-col md:flex-row gap-4 mb-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg;
+  @apply flex flex-col gap-6 mb-8 p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg;
   border: 1px solid rgba(255, 255, 255, 0.2);
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
 }
 
 .searchContainer {
-  @apply relative flex-1;
+  @apply relative w-full;
 }
 
 .searchContainer svg {
-  @apply absolute left-3 top-1/2 transform -translate-y-1/2 pointer-events-none;
+  @apply absolute left-4 top-1/2 transform -translate-y-1/2 pointer-events-none;
+  z-index: 10;
 }
 
 .searchInput {
-  @apply w-full pl-10 pr-4 py-3 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  @apply w-full pl-12 pr-6 py-4 text-lg rounded-xl bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-3 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300 placeholder-gray-500 dark:placeholder-gray-400;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.searchInput:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 71, 171, 0.2);
+  border-color: rgba(0, 71, 171, 0.5);
+}
+
+.filtersRow {
+  @apply flex flex-col md:flex-row gap-4;
 }
 
 .filterContainer {
@@ -158,6 +171,12 @@
   @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
 }
 
+.searchResultsInfo {
+  @apply text-sm text-gray-600 dark:text-gray-400 mb-4 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .dashboardContainer {
@@ -178,8 +197,12 @@
   }
   
   .controlsSection {
-    @apply flex-col gap-4;
+    @apply gap-4;
     padding: 1.5rem;
+  }
+  
+  .searchInput {
+    @apply py-3 text-base;
   }
   
   .candidatesGrid {
@@ -211,6 +234,10 @@
   
   .controlsSection {
     padding: 1rem;
+  }
+  
+  .searchInput {
+    @apply pl-10 py-3 text-base;
   }
   
   .resultsSection {
@@ -246,7 +273,15 @@
   background: rgba(31, 41, 55, 0.1);
 }
 
-:global(.dark) .searchInput,
+:global(.dark) .searchInput {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+:global(.dark) .searchInput:focus {
+  border-color: rgba(64, 224, 208, 0.5);
+  box-shadow: 0 8px 30px rgba(64, 224, 208, 0.2);
+}
+
 :global(.dark) .filterInput {
   border-color: rgba(255, 255, 255, 0.1);
 }
@@ -267,4 +302,8 @@
 :global(.dark) .emptyState {
   border-color: rgba(255, 255, 255, 0.1);
   background: rgba(31, 41, 55, 0.1);
+}
+
+:global(.dark) .searchResultsInfo {
+  border-color: rgba(255, 255, 255, 0.1);
 }
