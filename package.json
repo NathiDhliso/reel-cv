@@ -7,7 +7,9 @@
     "frontend"
   ],
   "scripts": {
-    "dev": "netlify dev"
+    "dev": "netlify dev",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.588.0",
