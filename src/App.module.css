@@ -1,5 +1,4 @@
 .appContainer {
-  min-height: 100vh;
   background: linear-gradient(135deg, 
     rgba(245, 245, 245, 1) 0%, 
     rgba(255, 255, 255, 1) 30%, 
@@ -27,13 +26,12 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 2rem;
-  min-height: 80px;
 }
 
 @media (max-width: 1024px) {
   .headerContent {
     gap: 1.5rem;
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 1.25rem;
   }
 }
 
@@ -42,8 +40,7 @@
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    padding: 1.5rem 1rem;
-    min-height: auto;
+    padding: 1rem;
   }
   
   .userSection {
@@ -59,7 +56,7 @@
 
 @media (max-width: 640px) {
   .headerContent {
-    padding: 1rem;
+    padding: 0.75rem;
     gap: 1rem;
   }
   
@@ -270,13 +267,11 @@
   max-width: 80rem;
   margin: 0 auto;
   padding: 2rem 1.5rem;
-  min-height: calc(100vh - 120px);
 }
 
 @media (max-width: 768px) {
   .mainContent {
     padding: 1.5rem 1rem;
-    min-height: calc(100vh - 140px);
   }
 }
 
