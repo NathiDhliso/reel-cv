@@ -22,12 +22,13 @@ export const SkillSubmitForm = () => {
     const fetchSkills = async () => {
         try {
             const response = await axios.get(`${API_URL}/skills`);
-            setSkills(response.data);
-            if (response.data.length > 0) {
+            setSkills(response.data || []);
+            if (response.data && response.data.length > 0) {
                 setSelectedSkill(response.data[0].id);
             }
         } catch (error) {
             setMessage('Failed to load skills. Please try again.');
+            setSkills([]);
         } finally {
             setLoadingSkills(false);
         }
@@ -127,7 +128,7 @@ export const SkillSubmitForm = () => {
                         required
                     >
                         <option value="">Choose a skill...</option>
-                        {skills.map(skill => (
+                        {Array.isArray(skills) && skills.map(skill => (
                             <option key={skill.id} value={skill.id}>
                                 {skill.name}
                             </option>
