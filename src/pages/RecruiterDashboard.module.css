@@ -1,16 +1,16 @@
 .dashboardContainer {
   @apply w-full max-w-7xl mx-auto;
-  border: 1px solid rgba(229, 231, 235, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
   padding: 2rem;
-  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .dashboardHeader {
   @apply mb-8 pb-6;
-  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .headerContent {
@@ -28,7 +28,8 @@
 
 .recruiterBadge {
   @apply inline-flex items-center px-4 py-2 bg-innovation-purple/10 text-innovation-purple font-semibold rounded-lg;
-  border: 1px solid rgba(138, 43, 226, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
 }
 
 .loadingContainer {
@@ -45,7 +46,8 @@
 
 .errorMessage {
   @apply mb-6 p-4 bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-400 rounded-lg;
-  border: 1px solid rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
 }
 
 .statsGrid {
@@ -54,9 +56,9 @@
 
 .statCard {
   @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg flex items-center space-x-4;
-  border: 1px solid rgba(229, 231, 235, 0.3);
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
 }
 
 .statIcon {
@@ -78,9 +80,9 @@
 
 .controlsSection {
   @apply flex flex-col md:flex-row gap-4 mb-8 p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg;
-  border: 1px solid rgba(229, 231, 235, 0.3);
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
 }
 
 .searchContainer {
@@ -93,7 +95,8 @@
 
 .searchInput {
   @apply w-full pl-10 pr-4 py-3 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300;
-  border: 1px solid rgba(229, 231, 235, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .filterContainer {
@@ -106,21 +109,22 @@
 
 .filterInput {
   @apply w-full pl-10 pr-4 py-3 rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-deep-ocean-blue dark:focus:ring-hopeful-turquoise focus:border-transparent transition-all duration-300;
-  border: 1px solid rgba(229, 231, 235, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .resultsSection {
   @apply mb-8;
-  border: 1px solid rgba(229, 231, 235, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 1rem;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
 }
 
 .resultsHeader {
   @apply flex items-center justify-between mb-6;
-  border-bottom: 1px solid rgba(229, 231, 235, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 1rem;
 }
 
@@ -131,14 +135,15 @@
 
 .clearFiltersButton {
   @apply px-4 py-2 text-sm font-medium text-deep-ocean-blue dark:text-hopeful-turquoise hover:bg-deep-ocean-blue/10 dark:hover:bg-hopeful-turquoise/10 rounded-lg transition-all duration-300;
-  border: 1px solid rgba(0, 71, 171, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
 }
 
 .emptyState {
   @apply text-center py-16 bg-white dark:bg-gray-800 rounded-xl shadow-lg;
-  border: 1px solid rgba(229, 231, 235, 0.3);
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
 }
 
 .emptyTitle {
@@ -215,43 +220,51 @@
 
 /* Dark mode adjustments */
 :global(.dark) .dashboardContainer {
-  border-color: rgba(75, 85, 99, 0.3);
-  background: rgba(31, 41, 55, 0.02);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(31, 41, 55, 0.05);
 }
 
 :global(.dark) .dashboardHeader {
-  border-bottom-color: rgba(75, 85, 99, 0.5);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .recruiterBadge {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .errorMessage {
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 :global(.dark) .statCard {
-  border-color: rgba(75, 85, 99, 0.3);
-  background: rgba(31, 41, 55, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(31, 41, 55, 0.1);
 }
 
 :global(.dark) .controlsSection {
-  border-color: rgba(75, 85, 99, 0.3);
-  background: rgba(31, 41, 55, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(31, 41, 55, 0.1);
 }
 
 :global(.dark) .searchInput,
 :global(.dark) .filterInput {
-  border-color: rgba(75, 85, 99, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 :global(.dark) .resultsSection {
-  border-color: rgba(75, 85, 99, 0.2);
-  background: rgba(31, 41, 55, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(31, 41, 55, 0.08);
 }
 
 :global(.dark) .resultsHeader {
-  border-bottom-color: rgba(75, 85, 99, 0.2);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 :global(.dark) .clearFiltersButton {
-  border-color: rgba(64, 224, 208, 0.2);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 :global(.dark) .emptyState {
-  border-color: rgba(75, 85, 99, 0.3);
-  background: rgba(31, 41, 55, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(31, 41, 55, 0.1);
 }

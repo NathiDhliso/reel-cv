@@ -1,19 +1,20 @@
 .candidateCard {
   @apply bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl hover:border-deep-ocean-blue/30 dark:hover:border-hopeful-turquoise/30 transition-all duration-300 transform hover:-translate-y-1;
-  border: 1px solid rgba(229, 231, 235, 0.3);
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
 }
 
 .candidateHeader {
   @apply flex items-start justify-between mb-4;
-  border-bottom: 1px solid rgba(229, 231, 235, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 1rem;
 }
 
 .candidateAvatar {
   @apply w-12 h-12 bg-deep-ocean-blue/10 dark:bg-hopeful-turquoise/10 rounded-full flex items-center justify-center flex-shrink-0;
-  border: 1px solid rgba(0, 71, 171, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
 }
 
 .candidateInfo {
@@ -35,12 +36,12 @@
 
 .candidateStats {
   @apply space-y-2 mb-4 pb-4;
-  border-bottom: 1px solid rgba(229, 231, 235, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .statItem {
   @apply flex items-center space-x-2 text-sm;
-  border-left: 2px solid rgba(0, 71, 171, 0.1);
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
   padding-left: 0.5rem;
 }
 
@@ -55,10 +56,11 @@
 
 .skillsSection {
   @apply mb-4;
-  border: 1px solid rgba(229, 231, 235, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.5rem;
   padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
 }
 
 .skillsTitle {
@@ -71,19 +73,21 @@
 
 .skillTag {
   @apply px-2 py-1 bg-innovation-purple/10 text-innovation-purple text-xs font-medium rounded-full;
-  border: 1px solid rgba(138, 43, 226, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
 }
 
 .moreSkills {
   @apply px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 text-xs font-medium rounded-full;
-  border: 1px solid rgba(229, 231, 235, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
 }
 
 .highlightSection {
   @apply mb-4 p-3 rounded-lg;
-  background: linear-gradient(135deg, rgba(46, 139, 87, 0.1) 0%, rgba(0, 71, 171, 0.1) 100%);
-  border: 1px solid rgba(46, 139, 87, 0.2);
-  backdrop-filter: blur(5px);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
 }
 
 .highlightTitle {
@@ -92,7 +96,7 @@
 
 .highlightContent {
   @apply flex items-center justify-between;
-  border-top: 1px solid rgba(46, 139, 87, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 0.5rem;
 }
 
@@ -107,18 +111,20 @@
 
 .candidateActions {
   @apply pt-4;
-  border-top: 1px solid rgba(229, 231, 235, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .viewProfileButton {
   @apply w-full inline-flex items-center justify-center px-4 py-2 bg-deep-ocean-blue text-white font-semibold rounded-lg hover:bg-deep-ocean-blue/90 transition-all duration-300 text-sm;
-  border: 1px solid rgba(0, 71, 171, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 2px 8px -2px rgba(0, 71, 171, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 .viewProfileButton:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px -2px rgba(0, 71, 171, 0.4);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Responsive adjustments */
@@ -159,52 +165,56 @@
 
 /* Dark mode adjustments */
 :global(.dark) .candidateCard {
-  border-color: rgba(75, 85, 99, 0.3);
-  background: rgba(31, 41, 55, 0.9);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(31, 41, 55, 0.1);
 }
 
 :global(.dark) .candidateHeader {
-  border-bottom-color: rgba(75, 85, 99, 0.2);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 :global(.dark) .candidateAvatar {
-  border-color: rgba(64, 224, 208, 0.2);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 :global(.dark) .candidateStats {
-  border-bottom-color: rgba(75, 85, 99, 0.2);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
 }
 
 :global(.dark) .statItem {
-  border-left-color: rgba(64, 224, 208, 0.1);
+  border-left-color: rgba(255, 255, 255, 0.08);
 }
 
 :global(.dark) .skillsSection {
-  border-color: rgba(75, 85, 99, 0.1);
-  background: rgba(31, 41, 55, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+  background: rgba(31, 41, 55, 0.08);
 }
 
 :global(.dark) .skillTag {
-  border-color: rgba(138, 43, 226, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 :global(.dark) .moreSkills {
-  border-color: rgba(75, 85, 99, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 :global(.dark) .highlightSection {
-  background: linear-gradient(135deg, rgba(64, 224, 208, 0.1) 0%, rgba(46, 139, 87, 0.1) 100%);
-  border-color: rgba(64, 224, 208, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 :global(.dark) .highlightContent {
-  border-top-color: rgba(64, 224, 208, 0.1);
+  border-top-color: rgba(255, 255, 255, 0.08);
 }
 
 :global(.dark) .candidateActions {
-  border-top-color: rgba(75, 85, 99, 0.3);
+  border-top-color: rgba(255, 255, 255, 0.1);
 }
 
 :global(.dark) .viewProfileButton {
-  border-color: rgba(64, 224, 208, 0.2);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .viewProfileButton:hover {
+  border-color: rgba(255, 255, 255, 0.2);
 }

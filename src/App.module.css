@@ -10,15 +10,15 @@
 
 .header {
   width: 100%;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .headerContent {
@@ -181,14 +181,15 @@
   padding: 0.5rem 0.75rem;
   border-radius: 0.5rem;
   white-space: nowrap;
-  background: rgba(0, 71, 171, 0.05);
-  border: 1px solid rgba(0, 71, 171, 0.1);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .navLink:hover {
   color: #8A2BE2;
-  background: rgba(0, 71, 171, 0.1);
-  border-color: rgba(138, 43, 226, 0.2);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-1px);
 }
 
@@ -218,17 +219,19 @@
   font-weight: 500;
   font-size: 0.875rem;
   box-shadow: 0 4px 15px -3px rgba(0, 71, 171, 0.3);
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
   white-space: nowrap;
   min-width: 100px;
   justify-content: center;
+  backdrop-filter: blur(10px);
 }
 
 .authButton:hover {
   background: linear-gradient(135deg, #8A2BE2 0%, #0047AB 100%);
   box-shadow: 0 10px 25px -5px rgba(0, 71, 171, 0.4);
   transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 @media (max-width: 480px) {
@@ -241,13 +244,13 @@
 
 .themeToggleButton {
   padding: 0.5rem;
-  background: #F3F4F6;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 0.5rem;
   color: #1F2937;
   transition: all 0.3s ease;
   font-size: 1rem;
   cursor: pointer;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   outline: none;
   box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.1);
   min-width: 2.5rem;
@@ -256,12 +259,14 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  backdrop-filter: blur(10px);
 }
 
 .themeToggleButton:hover {
-  background: rgba(255, 215, 0, 0.2);
+  background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.2);
   transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .themeToggleButton:focus {
@@ -274,11 +279,11 @@
   margin: 0 auto;
   padding: 2rem 1.5rem;
   margin-top: 60px; /* Account for fixed header */
-  border: 1px solid rgba(229, 231, 235, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
@@ -303,10 +308,10 @@
 .welcomeContainer {
   text-align: center;
   padding: 4rem 0;
-  border: 1px solid rgba(229, 231, 235, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
 }
 
 .welcomeTitle {
@@ -340,13 +345,15 @@
   transition: all 0.3s ease;
   font-size: 1.125rem;
   box-shadow: 0 10px 25px -5px rgba(46, 139, 87, 0.4);
-  border: 1px solid rgba(46, 139, 87, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .ctaButton:hover {
   background: linear-gradient(135deg, #0047AB 0%, #8A2BE2 100%);
   box-shadow: 0 20px 40px -10px rgba(0, 71, 171, 0.4);
   transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Dark mode styles using :global() for CSS modules */
@@ -358,8 +365,8 @@
 }
 
 :global(.dark) .header {
-  background: rgba(31, 41, 55, 0.95);
-  border-bottom: 1px solid rgba(75, 85, 99, 0.5);
+  background: rgba(31, 41, 55, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 :global(.dark) .brandName {
@@ -379,34 +386,44 @@
 
 :global(.dark) .navLink {
   color: #40E0D0;
-  background: rgba(64, 224, 208, 0.05);
-  border-color: rgba(64, 224, 208, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 :global(.dark) .navLink:hover {
   color: #FFD700;
-  background: rgba(64, 224, 208, 0.1);
-  border-color: rgba(255, 215, 0, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+:global(.dark) .authButton {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .authButton:hover {
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 :global(.dark) .themeToggleButton {
-  background: #374151;
+  background: rgba(255, 255, 255, 0.05);
   color: #E5E7EB;
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 :global(.dark) .themeToggleButton:hover {
-  background: rgba(64, 224, 208, 0.2);
+  background: rgba(255, 255, 255, 0.1);
   color: #40E0D0;
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 :global(.dark) .mainContent {
-  border-color: rgba(75, 85, 99, 0.3);
-  background: rgba(31, 41, 55, 0.02);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(31, 41, 55, 0.05);
 }
 
 :global(.dark) .welcomeContainer {
-  border-color: rgba(75, 85, 99, 0.2);
-  background: rgba(31, 41, 55, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(31, 41, 55, 0.08);
 }
 
 :global(.dark) .welcomeTitle {
@@ -421,5 +438,9 @@
 }
 
 :global(.dark) .ctaButton {
-  border-color: rgba(46, 139, 87, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .ctaButton:hover {
+  border-color: rgba(255, 255, 255, 0.2);
 }
